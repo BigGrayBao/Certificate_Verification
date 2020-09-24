@@ -1,35 +1,30 @@
 package verification_window;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class LookupCertification {
 
     private String ownerName, ownerID, certificateID, issuer, vaild_period;
-    private String arrObject;
 
-    private JSONObject obj;
-    private JSONArray jsonArr;
+    private JSONObject jsonobj;
 
     public boolean setCertificateInfo(String certificate_info) {
         boolean isfind = true;
-        arrObject = certificate_info;
-        jsonArr = new JSONArray(arrObject);
-        obj = jsonArr.getJSONObject(0);
+        jsonobj = new JSONObject(certificate_info);
 
-        ownerName = obj.getString("ownerName");
+        ownerName = jsonobj.getString("ownerName");
         if (ownerName.equals("error"))
             isfind = false;
-        ownerID = obj.getString("ownerID");
+        ownerID = jsonobj.getString("ownerID");
         if (ownerID.equals("error"))
             isfind = false;
-        certificateID = obj.getString("certificateID");
+        certificateID = jsonobj.getString("certificateID");
         if (certificateID.equals("error"))
             isfind = false;
-        issuer = obj.getString("issuer");
+        issuer = jsonobj.getString("issuer");
         if (issuer.equals("error"))
             isfind = false;
-        vaild_period = obj.getString("vaildPeriod");
+        vaild_period = jsonobj.getString("vaildPeriod");
         if (vaild_period.equals("error"))
             isfind = false;
 

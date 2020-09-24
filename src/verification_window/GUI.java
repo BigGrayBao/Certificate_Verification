@@ -54,7 +54,7 @@ public class GUI {
     // private ImageIcon upload_btn_icon = new
     // ImageIcon(getClass().getResource("/verification_window/res/bao.png"));
 
-    private String result = "[{\"certificateID\":\"error\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}]";
+    private String result = "{\"certificateID\":\"5\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}";
 
     public void show() {
         window.repaint();
