@@ -180,7 +180,7 @@ public class GUI {
                 dialog.setLocationRelativeTo(window);
                 dialog.setBackgroundColor(new Color(255, 44, 140, 240));
 
-                dialog_yes_btn = new Button(20, FontAwesome.UPLOAD, new Color(255, 255, 255), "Yes");
+                dialog_yes_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Yes");
                 dialog_yes_btn.setBounds(60, 110, 100, 40);
                 dialog_yes_btn.setVisible(true);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
@@ -190,7 +190,7 @@ public class GUI {
                         dialog.setVisible(false);
                     }
                 });
-                dialog_no_btn = new Button(20, FontAwesome.UPLOAD, new Color(255, 255, 255), " No ");
+                dialog_no_btn = new Button(20, FontAwesome.TIMES_CIRCLE, new Color(255, 255, 255), " No ");
                 dialog_no_btn.setBounds(200, 110, 100, 40);
                 dialog_no_btn.setVisible(true);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
