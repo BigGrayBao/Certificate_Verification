@@ -2,12 +2,13 @@ package verification_window;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
+import jiconfont.icons.font_awesome.FontAwesome;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -15,6 +16,8 @@ import java.awt.Color;
 
 import spgui.SPDialog;
 import spgui.SPWindow;
+import spgui.componenet.Button;
+import spgui.componenet.UploadArea;
 
 public class GUI {
     SPWindow window = new SPWindow(800, 600);
@@ -25,19 +28,24 @@ public class GUI {
 
     private JTextField ownerID;
     private JTextField certificateID;
-    private JLabel upload_btn;
+    private Button upload_btn;
     private JLabel dialog_txt;
     private JLabel dialog_txt2;
 
-    private JButton dialog_yes_btn;
-    private JButton dialog_yes_btn_pressed;
-    private JButton dialog_no_btn;
-    private JButton dialog_no_btn_pressed;
+    private Button dialog_yes_btn;
+    private Button dialog_no_btn;
 
     private SPDialog dialog;
+    private UploadArea uploadArea;
 
     private ImageIcon tittlebar_icon = new ImageIcon(getClass().getResource("/verification_window/res/BigGrayBao.png"));
     private ImageIcon upload_btn_icon = new ImageIcon(getClass().getResource("/verification_window/res/bao.png"));
+
+    public void show() {
+        window.repaint();
+        window.windowContent.repaint();
+        window.setVisible(true);
+    }
 
     public void run() {
 
@@ -73,15 +81,18 @@ public class GUI {
         certificateID.enableInputMethods(false);
         window.addi(certificateID);
 
+        /****************************
+         * A uploadArea to add file *
+         ****************************/
+        uploadArea = new UploadArea();
+        uploadArea.setBounds(150, 260, 450, 450);
+        window.addi(uploadArea);
+
         /************************************
          * A button to upload certification *
          ************************************/
-        upload_btn = new JLabel();
-        upload_btn.setIcon(upload_btn_icon);
-        upload_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        upload_btn.setBounds(275, 300, 250, 80);
-        upload_btn.setVisible(true);
-        window.addi(upload_btn, 2000);
+        upload_btn = new Button(50, FontAwesome.CHECK, new Color(240, 50, 150), "Verification");
+        upload_btn.setBounds(400, 300, 500, 500);
         upload_btn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -92,9 +103,8 @@ public class GUI {
                 dialog.setLocationRelativeTo(window);
                 dialog.setBackgroundColor(new Color(255, 44, 140, 240));
 
-                dialog_yes_btn = new JButton();
-                dialog_yes_btn.setBounds(50, 110, 100, 40);
-                dialog_yes_btn.setText("Yes");
+                dialog_yes_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Yes");
+                dialog_yes_btn.setBounds(60, 110, 100, 40);
                 dialog_yes_btn.setVisible(true);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -103,9 +113,8 @@ public class GUI {
                         dialog.setVisible(false);
                     }
                 });
-                dialog_no_btn = new JButton();
+                dialog_no_btn = new Button(20, FontAwesome.TIMES_CIRCLE, new Color(255, 255, 255), " No ");
                 dialog_no_btn.setBounds(200, 110, 100, 40);
-                dialog_no_btn.setText("No");
                 dialog_no_btn.setVisible(true);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -114,10 +123,10 @@ public class GUI {
                         dialog.setVisible(false);
                     }
                 });
-                dialog_txt = new JLabel("You can not modify after upload.");
-                dialog_txt2 = new JLabel("Do you want to upload?");
-                dialog_txt.setBounds(35, 30, 400, 30);
-                dialog_txt2.setBounds(70, 55, 400, 30);
+                dialog_txt = new JLabel("Are you sure to");
+                dialog_txt2 = new JLabel("verification this certification?");
+                dialog_txt.setBounds(110, 30, 400, 30);
+                dialog_txt2.setBounds(55, 55, 400, 30);
                 dialog_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
                 dialog_txt2.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
                 dialog_txt.setVisible(true);
@@ -130,6 +139,6 @@ public class GUI {
                 dialog.setVisible(true);
             }
         });
-
+        window.addi(upload_btn);
     }
 }

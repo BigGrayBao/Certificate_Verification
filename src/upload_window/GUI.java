@@ -2,12 +2,13 @@ package upload_window;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
+import jiconfont.icons.font_awesome.FontAwesome;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -17,7 +18,9 @@ import java.util.ArrayList;
 
 import spgui.SPDialog;
 import spgui.SPWindow;
+import spgui.componenet.Button;
 import spgui.componenet.ToggleBtn;
+import spgui.componenet.UploadArea;
 
 public class GUI {
     SPWindow window = new SPWindow(800, 600);
@@ -31,37 +34,39 @@ public class GUI {
     private JTextField certificateID;
     private JTextField Issuer;
     private JTextField vaild_period;
-    private ToggleBtn vaild_period_btn;
-    private JTextField none;
-    private ToggleBtn none_btn;
+
     private JLabel open_vaild_period_txt;
-    private JLabel open_none_txt;
-    private JLabel upload_btn;
     private JLabel dialog_txt;
     private JLabel dialog_txt2;
 
-    private JButton dialog_yes_btn;
-    private JButton dialog_yes_btn_pressed;
-    private JButton dialog_no_btn;
-    private JButton dialog_no_btn_pressed;
+    private ToggleBtn vaild_period_btn;
+    private Button dialog_yes_btn;
+    private Button dialog_no_btn;
+    private Button upload_btn;
 
     private SPDialog dialog;
     private UploadCertification upload;
+    private UploadArea uploadArea;
 
     private ImageIcon tittlebar_icon = new ImageIcon(getClass().getResource("/upload_window/res/BigGrayBao.png"));
     private ImageIcon upload_btn_icon = new ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
 
     private ArrayList<String> certification = new ArrayList<>();
 
-    public void run() {
+    public void show() {
+        window.repaint();
+        window.windowContent.repaint();
+        window.setVisible(true);
+    }
 
+    public void run() {
+        window.setVisible(false);
         window.setBackgroundColor(new Color(255, 255, 255, 255));
         window.setLocationRelativeTo(null);
         window.setTitleBarColor(new Color(255, 44, 140, 220));
         window.setResizable(false);
         window.setTitle("BaoGrayBao");
         window.setIcon(tittlebar_icon.getImage());
-        window.setVisible(true);
 
         open_vaild_period_txt = new JLabel();
         open_vaild_period_txt.setText("open Vaild Period");
@@ -85,30 +90,6 @@ public class GUI {
 
                 boolean status = !vaild_period_btn.getStatus();
                 vaild_period.setVisible(status);
-            }
-        });
-
-        open_none_txt = new JLabel();
-        open_none_txt.setText("open None");
-        open_none_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
-        open_none_txt.setBounds(450, 343, 150, 100);
-        open_none_txt.setVisible(true);
-        window.addi(open_none_txt);
-
-        /**********************************
-         * A toggle button to enable none *
-         **********************************/
-        none_btn = new ToggleBtn(50, 30);
-        none_btn.setBounds(615, 360, 150, 100);
-        none_btn.setColor(new Color(255, 44, 140, 200), new Color(255, 44, 140, 255), new Color(255, 44, 140, 100));
-        none_btn.setVisible(true);
-        window.addi(none_btn);
-        none_btn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                boolean status = !none_btn.getStatus();
-                none.setVisible(status);
             }
         });
 
@@ -173,29 +154,18 @@ public class GUI {
         vaild_period.enableInputMethods(false);
         window.addi(vaild_period);
 
-        /******************************
-         * TextField for none *
-         ******************************/
-        none = new JTextField();
-        none.setBounds(100, 370, 250, 50);
-        none.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        none.addFocusListener(new JTextFieldHintListener(none, "none"));
-        none.setOpaque(false);
-        none.setBorder(border);
-        none.setVisible(false);
-        none.enableInputMethods(false);
-        window.addi(none);
-        // System.out.println(none.getText().equals("none") ? "" : none.getText());
+        /****************************
+         * A uploadArea to add file *
+         ****************************/
+        uploadArea = new UploadArea();
+        uploadArea.setBounds(150, 360, 450, 450);
+        window.addi(uploadArea);
 
         /************************************
          * A button to upload certification *
          ************************************/
-        upload_btn = new JLabel();
-        upload_btn.setIcon(upload_btn_icon);
-        upload_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        upload_btn.setBounds(450, 450, 250, 80);
-        upload_btn.setVisible(true);
-        window.addi(upload_btn, 2000);
+        upload_btn = new Button(50, FontAwesome.UPLOAD, new Color(240, 50, 150), "Upload");
+        upload_btn.setBounds(450, 380, 500, 500);
         upload_btn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -210,9 +180,8 @@ public class GUI {
                 dialog.setLocationRelativeTo(window);
                 dialog.setBackgroundColor(new Color(255, 44, 140, 240));
 
-                dialog_yes_btn = new JButton();
-                dialog_yes_btn.setBounds(50, 110, 100, 40);
-                dialog_yes_btn.setText("Yes");
+                dialog_yes_btn = new Button(20, FontAwesome.UPLOAD, new Color(255, 255, 255), "Yes");
+                dialog_yes_btn.setBounds(60, 110, 100, 40);
                 dialog_yes_btn.setVisible(true);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -221,9 +190,8 @@ public class GUI {
                         dialog.setVisible(false);
                     }
                 });
-                dialog_no_btn = new JButton();
+                dialog_no_btn = new Button(20, FontAwesome.UPLOAD, new Color(255, 255, 255), " No ");
                 dialog_no_btn.setBounds(200, 110, 100, 40);
-                dialog_no_btn.setText("No");
                 dialog_no_btn.setVisible(true);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -248,6 +216,6 @@ public class GUI {
                 dialog.setVisible(true);
             }
         });
-
+        window.addi(upload_btn);
     }
 }
