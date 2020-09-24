@@ -49,7 +49,8 @@ public class GUI {
     private UploadArea uploadArea;
 
     private ImageIcon tittlebar_icon = new ImageIcon(getClass().getResource("/upload_window/res/BigGrayBao.png"));
-    private ImageIcon upload_btn_icon = new ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
+    // private ImageIcon upload_btn_icon = new
+    // ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
 
     private ArrayList<String> certification = new ArrayList<>();
 

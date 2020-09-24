@@ -31,15 +31,30 @@ public class GUI {
     private Button upload_btn;
     private JLabel dialog_txt;
     private JLabel dialog_txt2;
+    private JLabel ownerName_info_txt;
+    private JLabel ownerID_info_txt;
+    private JLabel certificateID_info_txt;
+    private JLabel issuer_info_txt;
+    private JLabel vaild_period_info_txt;
+    private JLabel fail_txt;
 
     private Button dialog_yes_btn;
     private Button dialog_no_btn;
+    private Button sure_btn;
+    private Button fail_check_btn;
 
     private SPDialog dialog;
+    private SPDialog certificate_info;
+    private SPDialog verification_fail;
     private UploadArea uploadArea;
 
+    private LookupCertification lookupCertification;
+
     private ImageIcon tittlebar_icon = new ImageIcon(getClass().getResource("/verification_window/res/BigGrayBao.png"));
-    private ImageIcon upload_btn_icon = new ImageIcon(getClass().getResource("/verification_window/res/bao.png"));
+    // private ImageIcon upload_btn_icon = new
+    // ImageIcon(getClass().getResource("/verification_window/res/bao.png"));
+
+    private String result = "[{\"certificateID\":\"error\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}]";
 
     public void show() {
         window.repaint();
@@ -88,6 +103,38 @@ public class GUI {
         uploadArea.setBounds(150, 260, 450, 450);
         window.addi(uploadArea);
 
+        certificate_info = new SPDialog(535, 400);
+        certificate_info.setTitle("Bao");
+        certificate_info.setIcon(tittlebar_icon.getImage());
+        certificate_info.setBackgroundColor(new Color(255, 44, 140, 240));
+
+        verification_fail = new SPDialog(350, 200);
+        verification_fail.setTitle("Bao");
+        verification_fail.setIcon(tittlebar_icon.getImage());
+        verification_fail.setBackgroundColor(new Color(255, 44, 140, 240));
+
+        sure_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Sure");
+        sure_btn.setBounds(218, 300, 120, 40);
+        sure_btn.setVisible(true);
+        certificate_info.addi(sure_btn);
+        sure_btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                certificate_info.setVisible(false);
+            }
+        });
+
+        fail_check_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Sure");
+        fail_check_btn.setBounds(125, 110, 120, 40);
+        fail_check_btn.setVisible(true);
+        verification_fail.addi(fail_check_btn);
+        fail_check_btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                verification_fail.setVisible(false);
+            }
+        });
+
         /************************************
          * A button to upload certification *
          ************************************/
@@ -110,7 +157,41 @@ public class GUI {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         System.out.println("Yes");
-                        dialog.setVisible(false);
+                        lookupCertification = new LookupCertification();
+                        if (lookupCertification.setCertificateInfo((String) result)) {
+                            System.out.println("Find the Certification");
+                            dialog.setVisible(false);
+
+                            ownerName_info_txt = new JLabel("Owner Name : " + lookupCertification.getOwnerName());
+                            ownerID_info_txt = new JLabel("Owner ID : " + lookupCertification.getOwnerID());
+                            certificateID_info_txt = new JLabel(
+                                    "CertificateID : " + lookupCertification.getCertificateID());
+                            issuer_info_txt = new JLabel("Issuer : " + lookupCertification.getIssuer());
+                            vaild_period_info_txt = new JLabel(
+                                    "Vaild Period : " + lookupCertification.getVaildPeriod());
+                            setlabel(ownerName_info_txt, 150, 30);
+                            setlabel(ownerID_info_txt, 150, 80);
+                            setlabel(certificateID_info_txt, 150, 130);
+                            setlabel(issuer_info_txt, 150, 180);
+                            setlabel(vaild_period_info_txt, 150, 230);
+
+                            certificate_info.setLocationRelativeTo(window);
+                            certificate_info.setVisible(true);
+
+                        } else {
+                            System.out.println("Can not find the Certification");
+                            dialog.setVisible(false);
+
+                            fail_txt = new JLabel("Can not find the Certification!");
+                            fail_txt.setBounds(15, 50, 400, 30);
+                            fail_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 25));
+                            fail_txt.setVisible(true);
+                            verification_fail.addi(fail_txt);
+
+                            verification_fail.setLocationRelativeTo(window);
+                            verification_fail.setVisible(true);
+
+                        }
                     }
                 });
                 dialog_no_btn = new Button(20, FontAwesome.TIMES_CIRCLE, new Color(255, 255, 255), " No ");
@@ -140,5 +221,12 @@ public class GUI {
             }
         });
         window.addi(upload_btn);
+    }
+
+    public void setlabel(JLabel label, int x, int y) {
+        label.setBounds(x, y, 400, 30);
+        label.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 25));
+        label.setVisible(true);
+        certificate_info.addi(label);
     }
 }
