@@ -1,6 +1,7 @@
 package verification_window;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -9,6 +10,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import jiconfont.icons.font_awesome.FontAwesome;
+import jiconfont.swing.IconFontSwing;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -51,6 +53,7 @@ public class GUI {
     private LookupCertification lookupCertification;
 
     private ImageIcon tittlebar_icon = new ImageIcon(getClass().getResource("/verification_window/res/BigGrayBao.png"));
+
     // private ImageIcon upload_btn_icon = new
     // ImageIcon(getClass().getResource("/verification_window/res/bao.png"));
 
@@ -82,6 +85,7 @@ public class GUI {
         ownerID.setOpaque(false);
         ownerID.setBorder(border);
         ownerID.enableInputMethods(false);
+        ownerID.setVisible(false);
         window.addi(ownerID);
 
         /*******************************
@@ -99,8 +103,8 @@ public class GUI {
         /****************************
          * A uploadArea to add file *
          ****************************/
-        uploadArea = new UploadArea();
-        uploadArea.setBounds(150, 260, 450, 450);
+        uploadArea = new UploadArea(250, 200, 84, 24, 24);
+        uploadArea.setBounds(100, 260, 450, 450);
         window.addi(uploadArea);
 
         certificate_info = new SPDialog(535, 400);
@@ -113,8 +117,20 @@ public class GUI {
         verification_fail.setIcon(tittlebar_icon.getImage());
         verification_fail.setBackgroundColor(new Color(255, 44, 140, 240));
 
-        sure_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Sure");
-        sure_btn.setBounds(218, 300, 120, 40);
+        Color pink = new Color(255, 44, 140, 240);
+        Color white = new Color(255, 255, 255, 240);
+        // sure_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255),
+        // "Sure");
+        IconFontSwing.register(FontAwesome.getIconFont());
+        Icon check_circle_pink = IconFontSwing.buildIcon(FontAwesome.CHECK_CIRCLE, 24, pink);
+        Icon check_circle_white = IconFontSwing.buildIcon(FontAwesome.CHECK_CIRCLE, 24, white);
+        Icon check_pink = IconFontSwing.buildIcon(FontAwesome.CHECK, 24, pink);
+        Icon check_white = IconFontSwing.buildIcon(FontAwesome.CHECK, 24, white);
+        Icon times_circle_pink = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, pink);
+        Icon times_circle_white = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, white);
+
+        sure_btn = new Button(120, 40, 24, null, white, "Sure", 16);
+        sure_btn.setBounds(218, 300, 130, 50);
         sure_btn.setVisible(true);
         certificate_info.addi(sure_btn);
         sure_btn.addMouseListener(new MouseAdapter() {
@@ -124,8 +140,10 @@ public class GUI {
             }
         });
 
-        fail_check_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Sure");
-        fail_check_btn.setBounds(125, 110, 120, 40);
+        // fail_check_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255,
+        // 255), "Sure");
+        fail_check_btn = new Button(120, 40, 24, null, white, "Sure", 16);
+        fail_check_btn.setBounds(125, 110, 130, 50);
         fail_check_btn.setVisible(true);
         verification_fail.addi(fail_check_btn);
         fail_check_btn.addMouseListener(new MouseAdapter() {
@@ -138,8 +156,10 @@ public class GUI {
         /************************************
          * A button to upload certification *
          ************************************/
-        upload_btn = new Button(50, FontAwesome.CHECK, new Color(240, 50, 150), "Verification");
-        upload_btn.setBounds(400, 300, 500, 500);
+        // upload_btn = new Button(50, FontAwesome.CHECK, new Color(240, 50, 150),
+        // "Verification");
+        upload_btn = new Button(250, 50, 24, check_pink, pink, "Verification", 16);
+        upload_btn.setBounds(450, 325, 500, 500);
         upload_btn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -150,8 +170,10 @@ public class GUI {
                 dialog.setLocationRelativeTo(window);
                 dialog.setBackgroundColor(new Color(255, 44, 140, 240));
 
-                dialog_yes_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Yes");
-                dialog_yes_btn.setBounds(60, 110, 100, 40);
+                // dialog_yes_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255,
+                // 255), "Yes");
+                dialog_yes_btn = new Button(100, 40, 24, null, white, "Yes", 16);
+                dialog_yes_btn.setBounds(60, 110, 110, 50);
                 dialog_yes_btn.setVisible(true);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -194,8 +216,10 @@ public class GUI {
                         }
                     }
                 });
-                dialog_no_btn = new Button(20, FontAwesome.TIMES_CIRCLE, new Color(255, 255, 255), " No ");
-                dialog_no_btn.setBounds(200, 110, 100, 40);
+                // dialog_no_btn = new Button(20, FontAwesome.TIMES_CIRCLE, new Color(255, 255,
+                // 255), " No ");
+                dialog_no_btn = new Button(100, 40, 24, null, white, "No", 16);
+                dialog_no_btn.setBounds(200, 110, 110, 50);
                 dialog_no_btn.setVisible(true);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override

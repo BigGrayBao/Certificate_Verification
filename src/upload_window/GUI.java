@@ -1,6 +1,7 @@
 package upload_window;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -9,6 +10,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import jiconfont.icons.font_awesome.FontAwesome;
+import jiconfont.swing.IconFontSwing;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -158,14 +160,25 @@ public class GUI {
         /****************************
          * A uploadArea to add file *
          ****************************/
-        uploadArea = new UploadArea();
-        uploadArea.setBounds(150, 360, 450, 450);
+        uploadArea = new UploadArea(250, 150, 54, 28, 24);
+        uploadArea.setBounds(100, 360, 450, 450);
         window.addi(uploadArea);
+
+        Color pink = new Color(255, 44, 140, 240);
+        Color white = new Color(255, 255, 255, 240);
+
+        IconFontSwing.register(FontAwesome.getIconFont());
+        Icon check_circle_pink = IconFontSwing.buildIcon(FontAwesome.CHECK_CIRCLE, 24, pink);
+        Icon check_circle_white = IconFontSwing.buildIcon(FontAwesome.CHECK_CIRCLE, 24, white);
+        Icon check_pink = IconFontSwing.buildIcon(FontAwesome.CHECK, 32, pink);
+        Icon check_white = IconFontSwing.buildIcon(FontAwesome.CHECK, 24, white);
+        Icon times_circle_pink = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, pink);
+        Icon times_circle_white = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, white);
 
         /************************************
          * A button to upload certification *
          ************************************/
-        upload_btn = new Button(50, FontAwesome.UPLOAD, new Color(240, 50, 150), "Upload");
+        upload_btn = new Button(250, 50, 32, check_pink, pink, "Upload", 16);
         upload_btn.setBounds(450, 380, 500, 500);
         upload_btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -181,8 +194,8 @@ public class GUI {
                 dialog.setLocationRelativeTo(window);
                 dialog.setBackgroundColor(new Color(255, 44, 140, 240));
 
-                dialog_yes_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255, 255), "Yes");
-                dialog_yes_btn.setBounds(60, 110, 100, 40);
+                dialog_yes_btn = new Button(100, 40, 24, null, white, "Yes", 16);
+                dialog_yes_btn.setBounds(60, 110, 110, 50);
                 dialog_yes_btn.setVisible(true);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -191,8 +204,8 @@ public class GUI {
                         dialog.setVisible(false);
                     }
                 });
-                dialog_no_btn = new Button(20, FontAwesome.TIMES_CIRCLE, new Color(255, 255, 255), " No ");
-                dialog_no_btn.setBounds(200, 110, 100, 40);
+                dialog_no_btn = new Button(100, 40, 24, null, white, "No", 16);
+                dialog_no_btn.setBounds(200, 110, 110, 50);
                 dialog_no_btn.setVisible(true);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override
