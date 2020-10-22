@@ -9,6 +9,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import org.json.JSONArray;
+
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
 
@@ -40,6 +42,7 @@ public class GUI {
     private JLabel open_vaild_period_txt;
     private JLabel dialog_txt;
     private JLabel dialog_txt2;
+    private JLabel table;
 
     private ToggleBtn vaild_period_btn;
     private Button dialog_yes_btn;
@@ -49,8 +52,12 @@ public class GUI {
     private SPDialog dialog;
     private UploadCertification upload;
     private UploadArea uploadArea;
+    private ReadJson readJson = new ReadJson();
+    private String path;
+    private JSONArray dataArray;
 
     private ImageIcon tittlebar_icon = new ImageIcon(getClass().getResource("/upload_window/res/BigGrayBao.png"));
+    private ImageIcon table_icon = createImageIcon("/upload_window/res/table.png", "Bao");
     // private ImageIcon upload_btn_icon = new
     // ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
 
@@ -70,6 +77,11 @@ public class GUI {
         window.setResizable(false);
         window.setTitle("BaoGrayBao");
         window.setIcon(tittlebar_icon.getImage());
+
+        table = new JLabel("", table_icon, JLabel.CENTER);
+        table.setBounds(0, 0, 800, 600);
+        table.setVisible(true);
+        window.addi(table, 600);
 
         open_vaild_period_txt = new JLabel();
         open_vaild_period_txt.setText("open Vaild Period");
@@ -188,6 +200,18 @@ public class GUI {
                 upload.setCertification(certification);
                 upload.printCertification();
 
+                // upload data
+                if (!uploadArea.getPath().isEmpty()) {
+                    path = readJson.ReadJson(uploadArea.getPath().get(0));
+                    dataArray = new JSONArray(path);
+                    System.out.println(dataArray.getJSONObject(0).getString("ownerName"));
+                    System.out.println(dataArray.getJSONObject(0).getString("ownerID"));
+                    System.out.println(dataArray.getJSONObject(0).getString("certificateID"));
+                    System.out.println(dataArray.getJSONObject(0).getString("issuer"));
+                    System.out.println(dataArray.getJSONObject(0).getString("vaildPeriod"));
+
+                }
+
                 dialog = new SPDialog(350, 200);
                 dialog.setTitle("Bao");
                 dialog.setIcon(tittlebar_icon.getImage());
@@ -231,5 +255,15 @@ public class GUI {
             }
         });
         window.addi(upload_btn);
+    }
+
+    protected ImageIcon createImageIcon(String path, String description) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
     }
 }
