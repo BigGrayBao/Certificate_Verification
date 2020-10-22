@@ -43,6 +43,10 @@ public class GUI {
     private JLabel dialog_txt;
     private JLabel dialog_txt2;
     private JLabel table;
+    private JLabel upload_txt_label;
+    private JLabel upload_certificate_btn;
+    private JLabel upload_json_btn;
+    private JLabel add_new_data_btn;
 
     private ToggleBtn vaild_period_btn;
     private Button dialog_yes_btn;
@@ -50,14 +54,25 @@ public class GUI {
     private Button upload_btn;
 
     private SPDialog dialog;
+    private SPDialog load_json_dialog;
+    private SPDialog add_new_data_dialog;
+    private SPDialog upload_certificate_dialog;
     private UploadCertification upload;
     private UploadArea uploadArea;
     private ReadJson readJson = new ReadJson();
     private String path;
     private JSONArray dataArray;
 
-    private ImageIcon tittlebar_icon = new ImageIcon(getClass().getResource("/upload_window/res/BigGrayBao.png"));
-    private ImageIcon table_icon = createImageIcon("/upload_window/res/table.png", "Bao");
+    private ImageIcon tittlebar_icon = createImageIcon("/upload_window/res/BigGrayBao.png", null);
+    private ImageIcon table_icon = createImageIcon("/upload_window/res/table.png", null);
+    private ImageIcon upload_txt = createImageIcon("/upload_window/res/upload_txt.png", null);
+    private ImageIcon upload_certificate = createImageIcon("/upload_window/res/upload_certificate.png", null);
+    private ImageIcon upload_certificate_big = createImageIcon("/upload_window/res/upload_certificate_entered.png",
+            null);
+    private ImageIcon upload_json = createImageIcon("/upload_window/res/upload_json.png", null);
+    private ImageIcon upload_json_big = createImageIcon("/upload_window/res/upload_json_entered.png", null);
+    private ImageIcon add_new_data = createImageIcon("/upload_window/res/add_new_data.png", null);
+    private ImageIcon add_new_data_big = createImageIcon("/upload_window/res/add_new_data_entered.png", null);
     // private ImageIcon upload_btn_icon = new
     // ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
 
@@ -71,24 +86,130 @@ public class GUI {
 
     public void run() {
         window.setVisible(false);
-        window.setBackgroundColor(new Color(255, 255, 255, 255));
+        window.setBackgroundColor(new Color(122, 122, 122, 255));
         window.setLocationRelativeTo(null);
-        window.setTitleBarColor(new Color(255, 44, 140, 220));
+        window.setTitleBarColor(new Color(255, 0, 128, 200));
         window.setResizable(false);
         window.setTitle("BaoGrayBao");
         window.setIcon(tittlebar_icon.getImage());
 
+        // A data table to view certificate info
         table = new JLabel("", table_icon, JLabel.CENTER);
-        table.setBounds(0, 0, 800, 600);
+        table.setBounds(0, -30, 800, 600);
         table.setVisible(true);
-        window.addi(table, 600);
+        window.addi(table);
+
+        // Text
+        upload_txt_label = new JLabel("", upload_txt, JLabel.CENTER);
+        upload_txt_label.setBounds(0, -30, 800, 600);
+        upload_txt_label.setVisible(true);
+        window.addi(upload_txt_label);
+
+        upload_certificate_btn = new JLabel("", upload_certificate, JLabel.CENTER);
+        upload_certificate_btn.setBounds(260, 75, 180, 50);
+        upload_certificate_btn.setVisible(true);
+        upload_certificate_btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                upload_certificate_btn.setIcon(upload_certificate_big);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                upload_certificate_btn.setIcon(upload_certificate);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                upload_certificate_btn.setIcon(upload_certificate);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                upload_certificate_btn.setIcon(upload_certificate_big);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                upload_certificate_dialog = new SPDialog(350, 200);
+                upload_certificate_dialog.setLocationRelativeTo(window);
+                upload_certificate_dialog.setVisible(true);
+            }
+        });
+        window.addi(upload_certificate_btn, 200);
+
+        add_new_data_btn = new JLabel("", add_new_data, JLabel.CENTER);
+        add_new_data_btn.setBounds(430, 73, 180, 50);
+        add_new_data_btn.setVisible(true);
+        add_new_data_btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                add_new_data_btn.setIcon(add_new_data_big);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                add_new_data_btn.setIcon(add_new_data);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                add_new_data_btn.setIcon(add_new_data);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                add_new_data_btn.setIcon(add_new_data_big);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                add_new_data_dialog = new SPDialog(350, 200);
+                add_new_data_dialog.setLocationRelativeTo(window);
+                add_new_data_dialog.setVisible(true);
+            }
+        });
+        window.addi(add_new_data_btn, 200);
+
+        upload_json_btn = new JLabel("", upload_json, JLabel.CENTER);
+        upload_json_btn.setBounds(600, 75, 180, 50);
+        upload_json_btn.setVisible(true);
+        upload_json_btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                upload_json_btn.setIcon(upload_json_big);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                upload_json_btn.setIcon(upload_json);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                upload_json_btn.setIcon(upload_json);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                upload_json_btn.setIcon(upload_json_big);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                load_json_dialog = new SPDialog(350, 200);
+                load_json_dialog.setLocationRelativeTo(window);
+                load_json_dialog.setVisible(true);
+            }
+        });
+        window.addi(upload_json_btn, 200);
 
         open_vaild_period_txt = new JLabel();
         open_vaild_period_txt.setText("open Vaild Period");
         open_vaild_period_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
         open_vaild_period_txt.setBounds(450, 243, 150, 100);
         open_vaild_period_txt.setVisible(true);
-        window.addi(open_vaild_period_txt);
+        // window.addi(open_vaild_period_txt);
 
         /******************************************
          * A toggle button to enable vaild preiod *
@@ -118,7 +239,7 @@ public class GUI {
         ownerName.setOpaque(false);
         ownerName.setBorder(border);
         ownerName.enableInputMethods(false);
-        window.addi(ownerName);
+        // window.addi(ownerName);
 
         /*************************
          * TextField for ownerID *
@@ -130,7 +251,7 @@ public class GUI {
         ownerID.setOpaque(false);
         ownerID.setBorder(border);
         ownerID.enableInputMethods(false);
-        window.addi(ownerID);
+        // window.addi(ownerID);
 
         /*******************************
          * TextField for certificateID *
@@ -142,7 +263,7 @@ public class GUI {
         certificateID.setOpaque(false);
         certificateID.setBorder(border);
         certificateID.enableInputMethods(false);
-        window.addi(certificateID);
+        // window.addi(certificateID);
 
         /************************
          * TextField for Issuer *
@@ -154,7 +275,7 @@ public class GUI {
         Issuer.setOpaque(false);
         Issuer.setBorder(border);
         Issuer.enableInputMethods(false);
-        window.addi(Issuer);
+        // window.addi(Issuer);
 
         /******************************
          * TextField for Vaild period *
@@ -167,14 +288,14 @@ public class GUI {
         vaild_period.setBorder(border);
         vaild_period.setVisible(false);
         vaild_period.enableInputMethods(false);
-        window.addi(vaild_period);
+        // window.addi(vaild_period);
 
         /****************************
          * A uploadArea to add file *
          ****************************/
         uploadArea = new UploadArea(250, 150, 54, 28, 24);
         uploadArea.setBounds(100, 360, 450, 450);
-        window.addi(uploadArea);
+        // window.addi(uploadArea);
 
         Color pink = new Color(255, 44, 140, 240);
         Color white = new Color(255, 255, 255, 240);
