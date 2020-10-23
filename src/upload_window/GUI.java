@@ -10,6 +10,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
@@ -77,6 +78,9 @@ public class GUI {
     // ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
 
     private ArrayList<String> certification = new ArrayList<>();
+    private DataTable dataTable = new DataTable();
+    JSONObject bao = new JSONObject(
+            "{\"certificateID\":\"5\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}");
 
     public void show() {
         window.repaint();
@@ -97,7 +101,7 @@ public class GUI {
         table = new JLabel("", table_icon, JLabel.CENTER);
         table.setBounds(0, -30, 800, 600);
         table.setVisible(true);
-        window.addi(table);
+        window.addi(table, 200);
 
         // Text
         upload_txt_label = new JLabel("", upload_txt, JLabel.CENTER);
@@ -164,12 +168,13 @@ public class GUI {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                add_new_data_dialog = new SPDialog(350, 200);
-                add_new_data_dialog.setLocationRelativeTo(window);
-                add_new_data_dialog.setVisible(true);
+                dataTable.addData(bao);
+                // add_new_data_dialog = new SPDialog(350, 200);
+                // add_new_data_dialog.setLocationRelativeTo(window);
+                // add_new_data_dialog.setVisible(true);
             }
         });
-        window.addi(add_new_data_btn, 200);
+        window.addi(add_new_data_btn, 300);
 
         upload_json_btn = new JLabel("", upload_json, JLabel.CENTER);
         upload_json_btn.setBounds(600, 75, 180, 50);
@@ -203,6 +208,14 @@ public class GUI {
             }
         });
         window.addi(upload_json_btn, 200);
+
+        // JSONObject bao = new JSONObject(
+        // "{\"certificateID\":\"5\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}");
+
+        // for (int i = 0; i < 10; i++)
+        // dataTable.addData(bao);
+        dataTable.setBounds(50, 160, 800, 600);
+        window.addi(dataTable, Integer.valueOf(300));
 
         open_vaild_period_txt = new JLabel();
         open_vaild_period_txt.setText("open Vaild Period");
