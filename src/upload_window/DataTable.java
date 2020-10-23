@@ -28,7 +28,7 @@ public class DataTable extends JComponent {
         int length = (data.size() >= 8) ? 8 : data.size();
         for (int i = 0; i < length; i++) {
             DataTableItem item = new DataTableItem(data.get(i));
-            item.setBounds(0, this.getComponentCount() * 42, 600, 50);
+            item.setBounds(0, this.getComponentCount() * 42, 800, 50);
             add(item);
         }
         this.repaint();
@@ -47,33 +47,33 @@ class DataTableItem extends JComponent {
 
     public DataTableItem(JSONObject data_info) {
         ownerName.setForeground(Color.WHITE);
-        ownerName.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
+        ownerName.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
         ownerName.setText(data_info.getString("ownerName"));
-        ownerName.setBounds(10, 0, 200, 50);
+        ownerName.setBounds(15, 0, 200, 50);
         add(ownerName);
 
         ownerID.setForeground(Color.WHITE);
-        ownerID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
+        ownerID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
         ownerID.setText(data_info.getString("ownerID"));
-        ownerID.setBounds(110, 0, 200, 50);
+        ownerID.setBounds(138, 0, 200, 50);
         add(ownerID);
 
         certificateID.setForeground(Color.WHITE);
-        certificateID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
+        certificateID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
         certificateID.setText(data_info.getString("certificateID"));
-        certificateID.setBounds(210, 0, 200, 50);
+        certificateID.setBounds(260, 0, 200, 50);
         add(certificateID);
 
         issuer.setForeground(Color.WHITE);
-        issuer.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
+        issuer.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
         issuer.setText(data_info.getString("issuer"));
-        issuer.setBounds(310, 0, 200, 50);
+        issuer.setBounds(405, 0, 200, 50);
         add(issuer);
 
         vaildPeriod.setForeground(Color.WHITE);
-        vaildPeriod.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
+        vaildPeriod.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
         vaildPeriod.setText(data_info.getString("vaildPeriod"));
-        vaildPeriod.setBounds(410, 0, 200, 50);
+        vaildPeriod.setBounds(543, 0, 200, 50);
         add(vaildPeriod);
     }
 }

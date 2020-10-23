@@ -48,6 +48,7 @@ public class GUI {
     private JLabel upload_certificate_btn;
     private JLabel upload_json_btn;
     private JLabel add_new_data_btn;
+    private JLabel yes_btn;
 
     private ToggleBtn vaild_period_btn;
     private Button dialog_yes_btn;
@@ -80,7 +81,7 @@ public class GUI {
     private ArrayList<String> certification = new ArrayList<>();
     private DataTable dataTable = new DataTable();
     JSONObject bao = new JSONObject(
-            "{\"certificateID\":\"5\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}");
+            "{\"certificateID\":\"#123456789\",\"issuer\":\"NTCU\",\"ownerID\":\"R124760286\",\"ownerName\":\"BigGrayBao\",\"vaildPeriod\":\"1999/02/11\"}");
 
     public void show() {
         window.repaint();
@@ -168,13 +169,25 @@ public class GUI {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                add_new_data_dialog = new SPDialog(350, 200);
+                add_new_data_dialog.setLocationRelativeTo(window);
+                add_new_data_dialog.setBackgroundColor(new Color(255, 255, 255, 200));
+                yes_btn = new JLabel("", add_new_data, JLabel.CENTER);
+                yes_btn.setBounds(60, 110, 110, 50);
+                yes_btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        System.out.println("Yes");
+                        add_new_data_dialog.setVisible(false);
+                    }
+                });
+                yes_btn.setVisible(true);
+                add_new_data_dialog.add(yes_btn, Integer.valueOf(500));
+                add_new_data_dialog.setVisible(true);
                 dataTable.addData(bao);
-                // add_new_data_dialog = new SPDialog(350, 200);
-                // add_new_data_dialog.setLocationRelativeTo(window);
-                // add_new_data_dialog.setVisible(true);
             }
         });
-        window.addi(add_new_data_btn, 300);
+        window.addi(add_new_data_btn);
 
         upload_json_btn = new JLabel("", upload_json, JLabel.CENTER);
         upload_json_btn.setBounds(600, 75, 180, 50);
@@ -207,7 +220,7 @@ public class GUI {
                 load_json_dialog.setVisible(true);
             }
         });
-        window.addi(upload_json_btn, 200);
+        window.addi(upload_json_btn);
 
         // JSONObject bao = new JSONObject(
         // "{\"certificateID\":\"5\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}");
@@ -352,16 +365,16 @@ public class GUI {
                 dialog.setLocationRelativeTo(window);
                 dialog.setBackgroundColor(new Color(255, 44, 140, 240));
 
-                dialog_yes_btn = new Button(100, 40, 24, null, white, "Yes", 16);
-                dialog_yes_btn.setBounds(60, 110, 110, 50);
-                dialog_yes_btn.setVisible(true);
-                dialog_yes_btn.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        System.out.println("Yes");
-                        dialog.setVisible(false);
-                    }
-                });
+                // dialog_yes_btn = new Button(100, 40, 24, null, white, "Yes", 16);
+                // dialog_yes_btn.setBounds(60, 110, 110, 50);
+                // dialog_yes_btn.setVisible(true);
+                // dialog_yes_btn.addMouseListener(new MouseAdapter() {
+                // @Override
+                // public void mouseClicked(MouseEvent e) {
+                // System.out.println("Yes");
+                // dialog.setVisible(false);
+                // }
+                // });
                 dialog_no_btn = new Button(100, 40, 24, null, white, "No", 16);
                 dialog_no_btn.setBounds(200, 110, 110, 50);
                 dialog_no_btn.setVisible(true);
@@ -381,7 +394,7 @@ public class GUI {
                 dialog_txt.setVisible(true);
                 dialog_txt2.setVisible(true);
 
-                dialog.addi(dialog_yes_btn);
+                // dialog.addi(dialog_yes_btn);
                 dialog.addi(dialog_no_btn);
                 dialog.addi(dialog_txt);
                 dialog.addi(dialog_txt2);
