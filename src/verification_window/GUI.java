@@ -129,7 +129,7 @@ public class GUI {
         Icon times_circle_pink = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, pink);
         Icon times_circle_white = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, white);
 
-        sure_btn = new Button(120, 40, 24, null, white, "Sure", 16);
+        sure_btn = new Button(120, 40, 24, null, white, "Sure", 16, true);
         sure_btn.setBounds(218, 300, 130, 50);
         sure_btn.setVisible(true);
         certificate_info.addi(sure_btn);
@@ -142,7 +142,7 @@ public class GUI {
 
         // fail_check_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255,
         // 255), "Sure");
-        fail_check_btn = new Button(120, 40, 24, null, white, "Sure", 16);
+        fail_check_btn = new Button(120, 40, 24, null, white, "Sure", 16, true);
         fail_check_btn.setBounds(125, 110, 130, 50);
         fail_check_btn.setVisible(true);
         verification_fail.addi(fail_check_btn);
@@ -158,7 +158,7 @@ public class GUI {
          ************************************/
         // upload_btn = new Button(50, FontAwesome.CHECK, new Color(240, 50, 150),
         // "Verification");
-        upload_btn = new Button(250, 50, 24, check_pink, pink, "Verification", 16);
+        upload_btn = new Button(250, 50, 24, check_pink, pink, "Verification", 16, true);
         upload_btn.setBounds(450, 325, 500, 500);
         upload_btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -172,7 +172,7 @@ public class GUI {
 
                 // dialog_yes_btn = new Button(20, FontAwesome.CHECK_CIRCLE, new Color(255, 255,
                 // 255), "Yes");
-                dialog_yes_btn = new Button(100, 40, 24, null, white, "Yes", 16);
+                dialog_yes_btn = new Button(100, 40, 24, null, white, "Yes", 16, true);
                 dialog_yes_btn.setBounds(60, 110, 110, 50);
                 dialog_yes_btn.setVisible(true);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
@@ -218,7 +218,7 @@ public class GUI {
                 });
                 // dialog_no_btn = new Button(20, FontAwesome.TIMES_CIRCLE, new Color(255, 255,
                 // 255), " No ");
-                dialog_no_btn = new Button(100, 40, 24, null, white, "No", 16);
+                dialog_no_btn = new Button(100, 40, 24, null, white, "No", 16, true);
                 dialog_no_btn.setBounds(200, 110, 110, 50);
                 dialog_no_btn.setVisible(true);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {

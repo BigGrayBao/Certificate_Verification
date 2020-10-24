@@ -33,6 +33,10 @@ public class DataTable extends JComponent {
         }
         this.repaint();
     }
+
+    public ArrayList<JSONObject> getData() {
+        return this.data;
+    }
 }
 
 class DataTableItem extends JComponent {

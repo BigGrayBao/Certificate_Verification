@@ -17,6 +17,7 @@ import jiconfont.swing.IconFontSwing;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.UnsupportedEncodingException;
 import java.awt.Color;
 
 import java.util.ArrayList;
@@ -40,9 +41,7 @@ public class GUI {
     private JTextField Issuer;
     private JTextField vaild_period;
 
-    private JLabel open_vaild_period_txt;
-    private JLabel dialog_txt;
-    private JLabel dialog_txt2;
+    private JLabel hasVaildPeriod_txt;
     private JLabel table;
     private JLabel upload_txt_label;
     private JLabel upload_certificate_btn;
@@ -50,12 +49,11 @@ public class GUI {
     private JLabel add_new_data_btn;
     private JLabel yes_btn;
 
-    private ToggleBtn vaild_period_btn;
+    private ToggleBtn hasVaildPeriod;
     private Button dialog_yes_btn;
     private Button dialog_no_btn;
     private Button upload_btn;
 
-    private SPDialog dialog;
     private SPDialog load_json_dialog;
     private SPDialog add_new_data_dialog;
     private SPDialog upload_certificate_dialog;
@@ -64,6 +62,7 @@ public class GUI {
     private ReadJson readJson = new ReadJson();
     private String path;
     private JSONArray dataArray;
+    private JSONObject dataObject;
 
     private ImageIcon tittlebar_icon = createImageIcon("/upload_window/res/BigGrayBao.png", null);
     private ImageIcon table_icon = createImageIcon("/upload_window/res/table.png", null);
@@ -104,12 +103,16 @@ public class GUI {
         table.setVisible(true);
         window.addi(table, 200);
 
+        dataTable.setBounds(50, 160, 800, 600);
+        window.addi(dataTable, Integer.valueOf(300));
+
         // Text
         upload_txt_label = new JLabel("", upload_txt, JLabel.CENTER);
         upload_txt_label.setBounds(0, -30, 800, 600);
         upload_txt_label.setVisible(true);
         window.addi(upload_txt_label);
 
+        // Upload certificate
         upload_certificate_btn = new JLabel("", upload_certificate, JLabel.CENTER);
         upload_certificate_btn.setBounds(260, 75, 180, 50);
         upload_certificate_btn.setVisible(true);
@@ -136,13 +139,17 @@ public class GUI {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                upload_certificate_dialog = new SPDialog(350, 200);
-                upload_certificate_dialog.setLocationRelativeTo(window);
+                // System.out.println(dataTable.getData());
+                dataTable.getData().forEach(item -> {
+                    System.out.println(item);
+                });
+
                 upload_certificate_dialog.setVisible(true);
             }
         });
         window.addi(upload_certificate_btn, 200);
 
+        // Add new data
         add_new_data_btn = new JLabel("", add_new_data, JLabel.CENTER);
         add_new_data_btn.setBounds(430, 73, 180, 50);
         add_new_data_btn.setVisible(true);
@@ -169,26 +176,107 @@ public class GUI {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                add_new_data_dialog = new SPDialog(350, 200);
+
+                add_new_data_dialog = new SPDialog(600, 450);
                 add_new_data_dialog.setLocationRelativeTo(window);
-                add_new_data_dialog.setBackgroundColor(new Color(255, 255, 255, 200));
-                yes_btn = new JLabel("", add_new_data, JLabel.CENTER);
-                yes_btn.setBounds(60, 110, 110, 50);
-                yes_btn.addMouseListener(new MouseAdapter() {
+                add_new_data_dialog.setTitle("新增資料");
+                add_new_data_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
+                add_new_data_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
+                hasVaildPeriod = new ToggleBtn(50, 30);
+                hasVaildPeriod.setBounds(180, 205, 200, 150);
+                hasVaildPeriod.setColor(new Color(255, 44, 140, 200), new Color(255, 44, 140, 255),
+                        new Color(255, 44, 140, 100));
+
+                isFocusable(ownerName);
+                isFocusable(ownerID);
+                isFocusable(certificateID);
+                isFocusable(Issuer);
+
+                dialog_yes_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "新增", 48, true);
+                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_yes_btn.setBounds(370, 340, 140, 70);
+                dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        System.out.println("Yes");
                         add_new_data_dialog.setVisible(false);
+                        ownerName.setFocusable(false);
+                        ownerID.setFocusable(false);
+                        certificateID.setFocusable(false);
+                        Issuer.setFocusable(false);
+                        vaild_period.setFocusable(false);
+
+                        dataObject = new JSONObject();
+                        dataObject.put("ownerName", ownerName.getText());
+                        dataObject.put("ownerID", ownerID.getText());
+                        dataObject.put("certificateID", certificateID.getText());
+                        dataObject.put("issuer", Issuer.getText());
+                        dataObject.put("vaildPeriod", vaild_period.getText());
+                        dataTable.addData(dataObject);
+
+                        ownerName.setText("");
+                        ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+                        ownerID.setText("");
+                        ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+                        certificateID.setText("");
+                        certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+                        Issuer.setText("");
+                        Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+                        vaild_period.setText("none");
+                        vaild_period.setEditable(false);
+                        vaild_period.setFocusable(false);
                     }
                 });
-                yes_btn.setVisible(true);
-                add_new_data_dialog.add(yes_btn, Integer.valueOf(500));
+                dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
+                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_no_btn.setBounds(110, 340, 140, 70);
+                dialog_no_btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        add_new_data_dialog.setVisible(false);
+                        ownerName.setFocusable(false);
+                        ownerID.setFocusable(false);
+                        certificateID.setFocusable(false);
+                        Issuer.setFocusable(false);
+                        vaild_period.setFocusable(false);
+                    }
+                });
+                hasVaildPeriod.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        boolean status = hasVaildPeriod.getStatus();
+                        if (status) {
+                            vaild_period.setFocusable(false);
+                            vaild_period.setEditable(false);
+                            vaild_period.setText("none");
+                            vaild_period.setForeground(new Color(191, 191, 191));
+                        } else {
+                            vaild_period.setFocusable(true);
+                            vaild_period.setEditable(true);
+                            vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "vaild_period"));
+                        }
+                        ownerName.setFocusable(false);
+                        ownerID.setFocusable(false);
+                        certificateID.setFocusable(false);
+                        Issuer.setFocusable(false);
+                    }
+                });
+                add_new_data_dialog.addi(ownerName);
+                add_new_data_dialog.addi(ownerID);
+                add_new_data_dialog.addi(certificateID);
+                add_new_data_dialog.addi(Issuer);
+                add_new_data_dialog.addi(vaild_period);
+                add_new_data_dialog.addi(dialog_yes_btn);
+                add_new_data_dialog.addi(dialog_no_btn);
+                add_new_data_dialog.addi(hasVaildPeriod);
+                add_new_data_dialog.addi(hasVaildPeriod_txt);
+                dialog_yes_btn.setVisible(true);
+                dialog_no_btn.setVisible(true);
                 add_new_data_dialog.setVisible(true);
-                dataTable.addData(bao);
             }
         });
         window.addi(add_new_data_btn);
 
+        // Upload file
         upload_json_btn = new JLabel("", upload_json, JLabel.CENTER);
         upload_json_btn.setBounds(600, 75, 180, 50);
         upload_json_btn.setVisible(true);
@@ -215,193 +303,98 @@ public class GUI {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                load_json_dialog = new SPDialog(350, 200);
-                load_json_dialog.setLocationRelativeTo(window);
                 load_json_dialog.setVisible(true);
             }
         });
         window.addi(upload_json_btn);
 
-        // JSONObject bao = new JSONObject(
-        // "{\"certificateID\":\"5\",\"issuer\":\"Tom\",\"ownerID\":\"yellow\",\"ownerName\":\"asset13\",\"vaildPeriod\":\"1300\"}");
+        // Upload certificate dialog
+        upload_certificate_dialog = new SPDialog(350, 200);
+        upload_certificate_dialog.setLocationRelativeTo(window);
+        upload_certificate_dialog.setTitle("資料上鏈");
+        upload_certificate_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
+        upload_certificate_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
 
-        // for (int i = 0; i < 10; i++)
-        // dataTable.addData(bao);
-        dataTable.setBounds(50, 160, 800, 600);
-        window.addi(dataTable, Integer.valueOf(300));
-
-        open_vaild_period_txt = new JLabel();
-        open_vaild_period_txt.setText("open Vaild Period");
-        open_vaild_period_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
-        open_vaild_period_txt.setBounds(450, 243, 150, 100);
-        open_vaild_period_txt.setVisible(true);
-        // window.addi(open_vaild_period_txt);
-
-        /******************************************
-         * A toggle button to enable vaild preiod *
-         ******************************************/
-        vaild_period_btn = new ToggleBtn(50, 30);
-        vaild_period_btn.setBounds(615, 260, 150, 100);
-        vaild_period_btn.setColor(new Color(255, 44, 140, 200), new Color(255, 44, 140, 255),
-                new Color(255, 44, 140, 100));
-        vaild_period_btn.setVisible(true);
-        window.addi(vaild_period_btn);
-        vaild_period_btn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                boolean status = !vaild_period_btn.getStatus();
-                vaild_period.setVisible(status);
-            }
-        });
+        // Upload json dialog
+        load_json_dialog = new SPDialog(600, 450);
+        load_json_dialog.setLocationRelativeTo(window);
+        load_json_dialog.setTitle("檔案上傳");
+        load_json_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
+        load_json_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
 
         /***************************
          * TextField for ownerName *
          ***************************/
         ownerName = new JTextField();
-        ownerName.setBounds(100, 70, 250, 50);
+        ownerName.setBounds(70, 50, 200, 50);
         ownerName.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
         ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
         ownerName.setOpaque(false);
         ownerName.setBorder(border);
         ownerName.enableInputMethods(false);
-        // window.addi(ownerName);
+        ownerName.setFocusable(false);
 
         /*************************
          * TextField for ownerID *
          *************************/
         ownerID = new JTextField();
-        ownerID.setBounds(100, 170, 250, 50);
+        ownerID.setBounds(70, 130, 200, 50);
         ownerID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
         ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
         ownerID.setOpaque(false);
         ownerID.setBorder(border);
         ownerID.enableInputMethods(false);
-        // window.addi(ownerID);
+        ownerID.setFocusable(false);
 
         /*******************************
          * TextField for certificateID *
          *******************************/
         certificateID = new JTextField();
-        certificateID.setBounds(450, 70, 250, 50);
+        certificateID.setBounds(330, 50, 200, 50);
         certificateID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
         certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
         certificateID.setOpaque(false);
         certificateID.setBorder(border);
         certificateID.enableInputMethods(false);
-        // window.addi(certificateID);
+        certificateID.setFocusable(false);
 
         /************************
          * TextField for Issuer *
          ************************/
         Issuer = new JTextField();
-        Issuer.setBounds(450, 170, 250, 50);
+        Issuer.setBounds(330, 130, 200, 50);
         Issuer.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
         Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
         Issuer.setOpaque(false);
         Issuer.setBorder(border);
         Issuer.enableInputMethods(false);
-        // window.addi(Issuer);
+        Issuer.setFocusable(false);
 
         /******************************
          * TextField for Vaild period *
          ******************************/
         vaild_period = new JTextField();
-        vaild_period.setBounds(100, 270, 250, 50);
+        vaild_period.setBounds(330, 210, 200, 50);
         vaild_period.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "Vaild period"));
+        vaild_period.setText("none");
+        vaild_period.setForeground(new Color(191, 191, 191));
         vaild_period.setOpaque(false);
         vaild_period.setBorder(border);
-        vaild_period.setVisible(false);
         vaild_period.enableInputMethods(false);
-        // window.addi(vaild_period);
+        vaild_period.setFocusable(false);
+        vaild_period.setEditable(false);
+
+        hasVaildPeriod_txt = new JLabel("VaildPeriod", null, JLabel.CENTER);
+        hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
+        hasVaildPeriod_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
+        hasVaildPeriod_txt.setForeground(Color.WHITE);
 
         /****************************
          * A uploadArea to add file *
          ****************************/
         uploadArea = new UploadArea(250, 150, 54, 28, 24);
         uploadArea.setBounds(100, 360, 450, 450);
-        // window.addi(uploadArea);
 
-        Color pink = new Color(255, 44, 140, 240);
-        Color white = new Color(255, 255, 255, 240);
-
-        IconFontSwing.register(FontAwesome.getIconFont());
-        Icon check_circle_pink = IconFontSwing.buildIcon(FontAwesome.CHECK_CIRCLE, 24, pink);
-        Icon check_circle_white = IconFontSwing.buildIcon(FontAwesome.CHECK_CIRCLE, 24, white);
-        Icon check_pink = IconFontSwing.buildIcon(FontAwesome.CHECK, 32, pink);
-        Icon check_white = IconFontSwing.buildIcon(FontAwesome.CHECK, 24, white);
-        Icon times_circle_pink = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, pink);
-        Icon times_circle_white = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 24, white);
-
-        /************************************
-         * A button to upload certification *
-         ************************************/
-        upload_btn = new Button(250, 50, 32, check_pink, pink, "Upload", 16);
-        upload_btn.setBounds(450, 380, 500, 500);
-        upload_btn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                upload = new UploadCertification();
-                upload.setCertification(certification);
-                upload.printCertification();
-
-                // upload data
-                if (!uploadArea.getPath().isEmpty()) {
-                    path = readJson.ReadJson(uploadArea.getPath().get(0));
-                    dataArray = new JSONArray(path);
-                    System.out.println(dataArray.getJSONObject(0).getString("ownerName"));
-                    System.out.println(dataArray.getJSONObject(0).getString("ownerID"));
-                    System.out.println(dataArray.getJSONObject(0).getString("certificateID"));
-                    System.out.println(dataArray.getJSONObject(0).getString("issuer"));
-                    System.out.println(dataArray.getJSONObject(0).getString("vaildPeriod"));
-
-                }
-
-                dialog = new SPDialog(350, 200);
-                dialog.setTitle("Bao");
-                dialog.setIcon(tittlebar_icon.getImage());
-                dialog.setLocationRelativeTo(window);
-                dialog.setBackgroundColor(new Color(255, 44, 140, 240));
-
-                // dialog_yes_btn = new Button(100, 40, 24, null, white, "Yes", 16);
-                // dialog_yes_btn.setBounds(60, 110, 110, 50);
-                // dialog_yes_btn.setVisible(true);
-                // dialog_yes_btn.addMouseListener(new MouseAdapter() {
-                // @Override
-                // public void mouseClicked(MouseEvent e) {
-                // System.out.println("Yes");
-                // dialog.setVisible(false);
-                // }
-                // });
-                dialog_no_btn = new Button(100, 40, 24, null, white, "No", 16);
-                dialog_no_btn.setBounds(200, 110, 110, 50);
-                dialog_no_btn.setVisible(true);
-                dialog_no_btn.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        System.out.println("No");
-                        dialog.setVisible(false);
-                    }
-                });
-                dialog_txt = new JLabel("You can not modify after upload.");
-                dialog_txt2 = new JLabel("Do you want to upload?");
-                dialog_txt.setBounds(35, 30, 400, 30);
-                dialog_txt2.setBounds(70, 55, 400, 30);
-                dialog_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
-                dialog_txt2.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
-                dialog_txt.setVisible(true);
-                dialog_txt2.setVisible(true);
-
-                // dialog.addi(dialog_yes_btn);
-                dialog.addi(dialog_no_btn);
-                dialog.addi(dialog_txt);
-                dialog.addi(dialog_txt2);
-                dialog.setVisible(true);
-            }
-        });
-        window.addi(upload_btn);
     }
 
     protected ImageIcon createImageIcon(String path, String description) {
@@ -412,5 +405,14 @@ public class GUI {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
+    }
+
+    protected void isFocusable(JTextField textField) {
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                textField.setFocusable(true);
+            }
+        });
     }
 }
