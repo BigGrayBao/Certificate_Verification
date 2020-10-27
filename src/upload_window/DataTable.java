@@ -22,7 +22,7 @@ public class DataTable extends JComponent {
     }
 
     public void addData(JSONObject jsObj) {
-        data.add(jsObj);
+        data.add(0, jsObj);
         update();
     }
 
@@ -41,6 +41,20 @@ public class DataTable extends JComponent {
             add(item);
         }
         this.repaint();
+    }
+
+    public int changPage(int page) {
+        this.removeAll();
+        page = page <= 0 ? 0 : page;
+        page = page >= (data.size() / 8) ? (data.size() / 8) : page;
+        int temp = 8 * page;
+        for (int i = temp; i < temp + 8 && i < data.size(); i++) {
+            DataTableItem item = new DataTableItem(data.get(i));
+            item.setBounds(0, this.getComponentCount() * 42, 800, 50);
+            add(item);
+        }
+        this.repaint();
+        return page;
     }
 
     public ArrayList<JSONObject> getData() {

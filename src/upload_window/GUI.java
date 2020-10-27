@@ -35,6 +35,8 @@ public class GUI {
     Border empty = new EmptyBorder(0, 2, 5, 2);
     Border border = new CompoundBorder(bottom, empty);
 
+    private int page = 0;
+
     private JTextField ownerName;
     private JTextField ownerID;
     private JTextField certificateID;
@@ -48,6 +50,8 @@ public class GUI {
     private JLabel upload_json_btn;
     private JLabel add_new_data_btn;
     private JLabel yes_btn;
+    private JLabel left_arrow_btn;
+    private JLabel right_arrow_btn;
 
     private ToggleBtn hasVaildPeriod;
     private Button dialog_yes_btn;
@@ -74,6 +78,10 @@ public class GUI {
     private ImageIcon upload_json_big = createImageIcon("/upload_window/res/upload_json_entered.png", null);
     private ImageIcon add_new_data = createImageIcon("/upload_window/res/add_new_data.png", null);
     private ImageIcon add_new_data_big = createImageIcon("/upload_window/res/add_new_data_entered.png", null);
+    private ImageIcon left_arrow = createImageIcon("/upload_window/res/left_arrow.png", null);
+    private ImageIcon left_arrow_big = createImageIcon("/upload_window/res/left_arrow_big.png", null);
+    private ImageIcon right_arrow = createImageIcon("/upload_window/res/right_arrow.png", null);
+    private ImageIcon right_arrow_big = createImageIcon("/upload_window/res/right_arrow_big.png", null);
     // private ImageIcon upload_btn_icon = new
     // ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
 
@@ -349,6 +357,70 @@ public class GUI {
             }
         });
         window.addi(upload_json_btn);
+
+        left_arrow_btn = new JLabel("", left_arrow, JLabel.CENTER);
+        left_arrow_btn.setBounds(640, 507, 33, 30);
+        left_arrow_btn.setVisible(true);
+        left_arrow_btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                left_arrow_btn.setIcon(left_arrow_big);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                left_arrow_btn.setIcon(left_arrow);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                left_arrow_btn.setIcon(left_arrow);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                left_arrow_btn.setIcon(left_arrow_big);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                page--;
+                page = dataTable.changPage(page);
+            }
+        });
+        window.addi(left_arrow_btn, Integer.valueOf(500));
+
+        right_arrow_btn = new JLabel("", right_arrow, JLabel.CENTER);
+        right_arrow_btn.setBounds(710, 507, 33, 30);
+        right_arrow_btn.setVisible(true);
+        right_arrow_btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                right_arrow_btn.setIcon(right_arrow_big);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                right_arrow_btn.setIcon(right_arrow);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                right_arrow_btn.setIcon(right_arrow);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                right_arrow_btn.setIcon(right_arrow_big);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                page++;
+                page = dataTable.changPage(page);
+            }
+        });
+        window.addi(right_arrow_btn, Integer.valueOf(500));
 
         // Upload certificate dialog
         upload_certificate_dialog = new SPDialog(350, 200);
