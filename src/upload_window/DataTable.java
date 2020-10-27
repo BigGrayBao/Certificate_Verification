@@ -1,8 +1,11 @@
 package upload_window;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import java.awt.event.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.*;
@@ -18,8 +21,14 @@ public class DataTable extends JComponent {
 
     }
 
-    public void addData(JSONObject jsArr) {
-        data.add(jsArr);
+    public void addData(JSONObject jsObj) {
+        data.add(jsObj);
+        update();
+    }
+
+    public void addData(JSONArray jsArr) {
+        for (int i = 0; i < jsArr.length(); i++)
+            data.add(jsArr.getJSONObject(i));
         update();
     }
 
@@ -43,11 +52,18 @@ class DataTableItem extends JComponent {
 
     private static final long serialVersionUID = 1L;
 
+    private ImageIcon edit_img = new ImageIcon(getClass().getResource("/upload_window/res/edit.png"));
+    private ImageIcon edit_big_img = new ImageIcon(getClass().getResource("/upload_window/res/edit_big.png"));
+    private ImageIcon delete_img = new ImageIcon(getClass().getResource("/upload_window/res/delete.png"));
+    private ImageIcon delete_big_img = new ImageIcon(getClass().getResource("/upload_window/res/delete_big.png"));
+
     private JLabel ownerName = new JLabel();
     private JLabel ownerID = new JLabel();
     private JLabel certificateID = new JLabel();
     private JLabel issuer = new JLabel();
     private JLabel vaildPeriod = new JLabel();
+    private JLabel edit = new JLabel(edit_img);
+    private JLabel delete = new JLabel(delete_img);
 
     public DataTableItem(JSONObject data_info) {
         ownerName.setForeground(Color.WHITE);
@@ -79,5 +95,63 @@ class DataTableItem extends JComponent {
         vaildPeriod.setText(data_info.getString("vaildPeriod"));
         vaildPeriod.setBounds(543, 0, 200, 50);
         add(vaildPeriod);
+
+        edit.setBounds(655, 14, 18, 18);
+        edit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                edit.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/edit_big.png")));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                edit.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/edit.png")));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                edit.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/edit.png")));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                edit.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/edit_big.png")));
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+        add(edit);
+
+        delete.setBounds(690, 14, 18, 18);
+        delete.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                delete.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/delete_big.png")));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                delete.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/delete.png")));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                delete.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/delete.png")));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                delete.setIcon(new ImageIcon(getClass().getResource("/upload_window/res/delete_big.png")));
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+        add(delete);
     }
 }

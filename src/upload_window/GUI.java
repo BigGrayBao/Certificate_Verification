@@ -303,6 +303,48 @@ public class GUI {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                // Upload json dialog
+                load_json_dialog = new SPDialog(600, 450);
+                load_json_dialog.setLocationRelativeTo(window);
+                load_json_dialog.setTitle("檔案上傳");
+                load_json_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
+                load_json_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
+
+                /****************************
+                 * A uploadArea to add file *
+                 ****************************/
+                uploadArea = new UploadArea(250, 150, 54, 28, 24);
+                uploadArea.setBounds(180, 100, 450, 450);
+
+                dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
+                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_no_btn.setBounds(110, 340, 140, 70);
+                dialog_no_btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        load_json_dialog.setVisible(false);
+                    }
+                });
+                dialog_yes_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "新增", 48, true);
+                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_yes_btn.setBounds(370, 340, 140, 70);
+                dialog_yes_btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        dataArray = new JSONArray(readJson.ReadJson(uploadArea.getPath()));
+                        System.out.println(dataArray);
+                        dataTable.addData(dataArray);
+
+                        // uploadArea.getPath();
+                        load_json_dialog.setVisible(false);
+                    }
+                });
+
+                load_json_dialog.addi(uploadArea);
+                load_json_dialog.addi(dialog_no_btn);
+                load_json_dialog.addi(dialog_yes_btn);
+                dialog_no_btn.setVisible(true);
+                dialog_yes_btn.setVisible(true);
                 load_json_dialog.setVisible(true);
             }
         });
@@ -314,13 +356,6 @@ public class GUI {
         upload_certificate_dialog.setTitle("資料上鏈");
         upload_certificate_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
         upload_certificate_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
-
-        // Upload json dialog
-        load_json_dialog = new SPDialog(600, 450);
-        load_json_dialog.setLocationRelativeTo(window);
-        load_json_dialog.setTitle("檔案上傳");
-        load_json_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
-        load_json_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
 
         /***************************
          * TextField for ownerName *
@@ -388,12 +423,6 @@ public class GUI {
         hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
         hasVaildPeriod_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
         hasVaildPeriod_txt.setForeground(Color.WHITE);
-
-        /****************************
-         * A uploadArea to add file *
-         ****************************/
-        uploadArea = new UploadArea(250, 150, 54, 28, 24);
-        uploadArea.setBounds(100, 360, 450, 450);
 
     }
 
