@@ -49,7 +49,7 @@ public class GUI {
     private JLabel upload_certificate_btn;
     private JLabel upload_json_btn;
     private JLabel add_new_data_btn;
-    private JLabel yes_btn;
+    private JLabel upload_check_txt;
     private JLabel left_arrow_btn;
     private JLabel right_arrow_btn;
 
@@ -147,11 +147,48 @@ public class GUI {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                // System.out.println(dataTable.getData());
-                dataTable.getData().forEach(item -> {
-                    System.out.println(item);
+
+                upload_check_txt = new JLabel("<html><body align='center'>上傳後即無法更改<br>確定要上傳嗎?</body></html>", null,
+                        JLabel.CENTER);
+                upload_check_txt.setFont(new Font("Microsoft Tai Le", Font.BOLD, 28));
+                upload_check_txt.setBounds(0, 0, 350, 120);
+
+                // Upload certificate dialog
+                upload_certificate_dialog = new SPDialog(350, 200);
+                upload_certificate_dialog.setLocationRelativeTo(window);
+                upload_certificate_dialog.setTitle("資料上鏈");
+                upload_certificate_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
+                upload_certificate_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
+
+                dialog_no_btn = new Button(100, 40, 24, null, new Color(255, 255, 255, 255), "取消", 48, true);
+                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_no_btn.setBounds(45, 110, 140, 70);
+                dialog_no_btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        upload_certificate_dialog.setVisible(false);
+                    }
+                });
+                dialog_yes_btn = new Button(100, 40, 24, null, new Color(255, 255, 255, 255), "確定", 48, true);
+                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_yes_btn.setBounds(205, 110, 140, 70);
+                dialog_yes_btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        upload_certificate_dialog.setVisible(false);
+                        dataTable.getData().forEach(item -> {
+                            System.out.println(item);
+                        });
+                        dataTable.data.clear();
+                        dataTable.update();
+                    }
                 });
 
+                // System.out.println(dataTable.getData());
+
+                upload_certificate_dialog.addi(dialog_no_btn);
+                upload_certificate_dialog.addi(dialog_yes_btn);
+                upload_certificate_dialog.addi(upload_check_txt);
                 upload_certificate_dialog.setVisible(true);
             }
         });
@@ -421,13 +458,6 @@ public class GUI {
             }
         });
         window.addi(right_arrow_btn, Integer.valueOf(500));
-
-        // Upload certificate dialog
-        upload_certificate_dialog = new SPDialog(350, 200);
-        upload_certificate_dialog.setLocationRelativeTo(window);
-        upload_certificate_dialog.setTitle("資料上鏈");
-        upload_certificate_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
-        upload_certificate_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
 
         /***************************
          * TextField for ownerName *
