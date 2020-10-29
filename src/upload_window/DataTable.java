@@ -360,6 +360,7 @@ public class DataTable extends JComponent {
                     hasVaildPeriod_txt.setForeground(Color.WHITE);
 
                     add_new_data_dialog = new SPDialog(600, 450);
+                    add_new_data_dialog.setLocationRelativeTo(null);
                     add_new_data_dialog.setTitle("修改資料");
                     add_new_data_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
                     add_new_data_dialog.setBackgroundColor(new Color(120, 120, 120, 255));

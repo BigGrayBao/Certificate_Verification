@@ -151,7 +151,7 @@ public class GUI {
 
                 upload_check_txt = new JLabel("<html><body align='center'>上傳後即無法更改<br>確定要上傳嗎?</body></html>", null,
                         JLabel.CENTER);
-                // upload_check_txt.setFont(new Font("jf open 粉圓 1.0", Font.PLAIN, 30));
+                // upload_check_txt.setFont(new Font("標楷體", Font.BOLD, 30));
 
                 upload_check_txt.setFont(new Font("", Font.BOLD, 28));
                 upload_check_txt.setBounds(0, 0, 350, 120);
@@ -164,7 +164,7 @@ public class GUI {
                 upload_certificate_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
 
                 dialog_no_btn = new Button(100, 40, 24, null, new Color(255, 255, 255, 255), "取消", 48, true);
-                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
                 dialog_no_btn.setBounds(45, 110, 140, 70);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -173,7 +173,7 @@ public class GUI {
                     }
                 });
                 dialog_yes_btn = new Button(100, 40, 24, null, new Color(255, 255, 255, 255), "確定", 48, true);
-                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
                 dialog_yes_btn.setBounds(205, 110, 140, 70);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -241,7 +241,7 @@ public class GUI {
                 isFocusable(Issuer);
 
                 dialog_yes_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "新增", 48, true);
-                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
                 dialog_yes_btn.setBounds(370, 340, 140, 70);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -271,13 +271,13 @@ public class GUI {
                             dataTable.addData(dataObject);
 
                             ownerName.setText("");
-                            ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+                            ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "擁有者名稱"));
                             ownerID.setText("");
-                            ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+                            ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "身分證"));
                             certificateID.setText("");
-                            certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+                            certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "證書編號"));
                             Issuer.setText("");
-                            Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+                            Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "發證單位"));
                             vaild_period.setText("none");
                             vaild_period.setEditable(false);
                             vaild_period.setFocusable(false);
@@ -286,7 +286,7 @@ public class GUI {
                     }
                 });
                 dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
-                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
                 dialog_no_btn.setBounds(110, 340, 140, 70);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -311,7 +311,7 @@ public class GUI {
                         } else {
                             vaild_period.setFocusable(true);
                             vaild_period.setEditable(true);
-                            vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "vaild_period"));
+                            vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "有效期限"));
                         }
                         ownerName.setFocusable(false);
                         ownerID.setFocusable(false);
@@ -376,7 +376,7 @@ public class GUI {
                 uploadArea.setBounds(180, 100, 450, 450);
 
                 dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
-                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
                 dialog_no_btn.setBounds(110, 340, 140, 70);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -385,7 +385,7 @@ public class GUI {
                     }
                 });
                 dialog_yes_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "新增", 48, true);
-                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 18));
+                dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
                 dialog_yes_btn.setBounds(370, 340, 140, 70);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
@@ -480,7 +480,7 @@ public class GUI {
          ***************************/
         ownerName = new JTextField();
         ownerName.setBounds(70, 50, 200, 50);
-        ownerName.setFont(new Font("jf open 粉圓 1.0", Font.PLAIN, 30));
+        ownerName.setFont(new Font("標楷體", Font.BOLD, 30));
         ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "擁有者名稱"));
         ownerName.setOpaque(false);
         ownerName.setBorder(border);
@@ -492,8 +492,8 @@ public class GUI {
          *************************/
         ownerID = new JTextField();
         ownerID.setBounds(70, 130, 200, 50);
-        ownerID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+        ownerID.setFont(new Font("標楷體", Font.BOLD, 30));
+        ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "身分證"));
         ownerID.setOpaque(false);
         ownerID.setBorder(border);
         ownerID.enableInputMethods(false);
@@ -504,8 +504,8 @@ public class GUI {
          *******************************/
         certificateID = new JTextField();
         certificateID.setBounds(330, 50, 200, 50);
-        certificateID.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+        certificateID.setFont(new Font("標楷體", Font.BOLD, 30));
+        certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "證書編號"));
         certificateID.setOpaque(false);
         certificateID.setBorder(border);
         certificateID.enableInputMethods(false);
@@ -516,8 +516,8 @@ public class GUI {
          ************************/
         Issuer = new JTextField();
         Issuer.setBounds(330, 130, 200, 50);
-        Issuer.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+        Issuer.setFont(new Font("標楷體", Font.BOLD, 30));
+        Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "發證單位"));
         Issuer.setOpaque(false);
         Issuer.setBorder(border);
         Issuer.enableInputMethods(false);
@@ -528,7 +528,7 @@ public class GUI {
          ******************************/
         vaild_period = new JTextField();
         vaild_period.setBounds(330, 210, 200, 50);
-        vaild_period.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
+        vaild_period.setFont(new Font("標楷體", Font.BOLD, 30));
         vaild_period.setText("none");
         vaild_period.setForeground(new Color(191, 191, 191));
         vaild_period.setOpaque(false);
@@ -537,9 +537,9 @@ public class GUI {
         vaild_period.setFocusable(false);
         vaild_period.setEditable(false);
 
-        hasVaildPeriod_txt = new JLabel("VaildPeriod", null, JLabel.CENTER);
+        hasVaildPeriod_txt = new JLabel("有無期限", null, JLabel.CENTER);
         hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
-        hasVaildPeriod_txt.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 20));
+        hasVaildPeriod_txt.setFont(new Font("標楷體", Font.BOLD, 24));
         hasVaildPeriod_txt.setForeground(Color.WHITE);
 
     }

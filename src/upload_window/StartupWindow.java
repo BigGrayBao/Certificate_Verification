@@ -15,7 +15,8 @@ public class StartupWindow {
     }
 
     public void start() {
-        dialog = new SPDialog(512, 512);
+        dialog = new SPDialog(794, 615);
+        dialog.setModal(false);
         dialog.setTitleBarColor(new Color(0, 0, 0, 0));
         dialog.setBackgroundColor(new Color(0, 0, 0, 0));
         dialog.setLocationRelativeTo(null);
@@ -24,20 +25,13 @@ public class StartupWindow {
 
         JLabel label = new JLabel("", new ImageIcon(getClass().getResource("/upload_window/res/startup.gif")),
                 JLabel.CENTER);
-        label.setBounds(0, 0, 512, 512);
+        label.setBounds(0, 0, 794, 615);
         label.setVisible(true);
-
         dialog.addi(label);
-        // dialog.setVisible(true);
+        dialog.setVisible(true);
+    }
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void close() {
         dialog.setVisible(false);
-        dialog.dispose();
-
     }
 }
