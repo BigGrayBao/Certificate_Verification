@@ -32,6 +32,7 @@ public class DataTable extends JComponent {
     private JTextField Issuer;
     private JTextField vaild_period;
     private JLabel hasVaildPeriod_txt;
+    private JLabel page_info;
     private ToggleBtn hasVaildPeriod;
     private Button dialog_yes_btn;
     private Button dialog_no_btn;
@@ -257,8 +258,10 @@ public class DataTable extends JComponent {
     }
 
     public int changPage(int page) {
+        if (data.isEmpty())
+            return this.page--;
         this.removeAll();
-        this.page = page <= 0 ? 0 : page;
+        this.page = page <= 0 || data.isEmpty() ? 0 : page;
         this.page = this.page >= (data.size() / 8) ? (data.size() / 8) : this.page;
         this.page = data.size() % 8 == 0 ? this.page - 1 : this.page;
         int temp = 8 * this.page;

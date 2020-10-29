@@ -27,6 +27,7 @@ import spgui.SPWindow;
 import spgui.componenet.Button;
 import spgui.componenet.ToggleBtn;
 import spgui.componenet.UploadArea;
+import spgui.componenet.Snackbar.Direct;
 
 public class GUI {
     SPWindow window = new SPWindow(800, 600);
@@ -150,7 +151,9 @@ public class GUI {
 
                 upload_check_txt = new JLabel("<html><body align='center'>上傳後即無法更改<br>確定要上傳嗎?</body></html>", null,
                         JLabel.CENTER);
-                upload_check_txt.setFont(new Font("Microsoft Tai Le", Font.BOLD, 28));
+                // upload_check_txt.setFont(new Font("jf open 粉圓 1.0", Font.PLAIN, 30));
+
+                upload_check_txt.setFont(new Font("", Font.BOLD, 28));
                 upload_check_txt.setBounds(0, 0, 350, 120);
 
                 // Upload certificate dialog
@@ -243,32 +246,43 @@ public class GUI {
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        add_new_data_dialog.setVisible(false);
+
                         ownerName.setFocusable(false);
                         ownerID.setFocusable(false);
                         certificateID.setFocusable(false);
                         Issuer.setFocusable(false);
                         vaild_period.setFocusable(false);
 
-                        dataObject = new JSONObject();
-                        dataObject.put("ownerName", ownerName.getText());
-                        dataObject.put("ownerID", ownerID.getText());
-                        dataObject.put("certificateID", certificateID.getText());
-                        dataObject.put("issuer", Issuer.getText());
-                        dataObject.put("vaildPeriod", vaild_period.getText());
-                        dataTable.addData(dataObject);
+                        InputControl check = new InputControl();
+                        if (!check.checkInput(ownerName.getText(), ownerID.getText(), certificateID.getText(),
+                                Issuer.getText(), vaild_period.getText())) {
+                            System.out.println("input error");
+                            vaild_period.setFocusable(true);
+                            window.snackbar.show("請檢查資料格式是否錯誤", 4000, Direct.Bottom);
+                        } else {
+                            add_new_data_dialog.setVisible(false);
 
-                        ownerName.setText("");
-                        ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
-                        ownerID.setText("");
-                        ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
-                        certificateID.setText("");
-                        certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
-                        Issuer.setText("");
-                        Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
-                        vaild_period.setText("none");
-                        vaild_period.setEditable(false);
-                        vaild_period.setFocusable(false);
+                            dataObject = new JSONObject();
+                            dataObject.put("ownerName", ownerName.getText());
+                            dataObject.put("ownerID", ownerID.getText());
+                            dataObject.put("certificateID", certificateID.getText());
+                            dataObject.put("issuer", Issuer.getText());
+                            dataObject.put("vaildPeriod", vaild_period.getText());
+                            dataTable.addData(dataObject);
+
+                            ownerName.setText("");
+                            ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+                            ownerID.setText("");
+                            ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+                            certificateID.setText("");
+                            certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+                            Issuer.setText("");
+                            Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+                            vaild_period.setText("none");
+                            vaild_period.setEditable(false);
+                            vaild_period.setFocusable(false);
+                        }
+
                     }
                 });
                 dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
@@ -376,12 +390,14 @@ public class GUI {
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        dataArray = new JSONArray(readJson.ReadJson(uploadArea.getPath()));
-                        System.out.println(dataArray);
-                        dataTable.addData(dataArray);
-
-                        // uploadArea.getPath();
-                        load_json_dialog.setVisible(false);
+                        if (readJson.ReadJson(uploadArea.getPath()).equals("err"))
+                            window.snackbar.show("請上傳json檔", 4000, Direct.Bottom);
+                        else {
+                            dataArray = new JSONArray(readJson.ReadJson(uploadArea.getPath()));
+                            dataTable.addData(dataArray);
+                            // System.out.println(dataArray);
+                            load_json_dialog.setVisible(false);
+                        }
                     }
                 });
 
@@ -464,8 +480,8 @@ public class GUI {
          ***************************/
         ownerName = new JTextField();
         ownerName.setBounds(70, 50, 200, 50);
-        ownerName.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 30));
-        ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+        ownerName.setFont(new Font("jf open 粉圓 1.0", Font.PLAIN, 30));
+        ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "擁有者名稱"));
         ownerName.setOpaque(false);
         ownerName.setBorder(border);
         ownerName.enableInputMethods(false);
