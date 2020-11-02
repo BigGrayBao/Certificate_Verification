@@ -1,6 +1,7 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,7 +25,8 @@ public class Main {
                     // String filepath =
                     // getClass().getResourceAsStream("/upload_window/res/jf-openhuninn-1.0.ttf");
                     // System.out.println(filepath);
-                    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("./jf-openhuninn-1.0.ttf")));
+                    InputStream jfFont = new FileInputStream(new File("./jf-openhuninn-1.0.ttf"));
+                    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, jfFont));
                     // ge.registerFont(Font.createFont(Font.TRUETYPE_FONT,
                     // getClass().getResourceAsStream("/upload_window/res/jf-openhuninn-1.0.ttf")));
                     // ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(filepath)));

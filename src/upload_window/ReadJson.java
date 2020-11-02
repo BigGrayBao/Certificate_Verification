@@ -10,7 +10,7 @@ public class ReadJson {
     public String ReadJson(ArrayList<String> path) {
         String s = "", temp = null, tempPath;
         if (path.isEmpty())
-            System.err.println("No path");
+            return "err";
         if (!path.get(0).substring(path.get(0).length() - 4, path.get(0).length()).equals("json"))
             return "err";
         for (int i = 0; i < path.size(); i++) {

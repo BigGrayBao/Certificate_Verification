@@ -3,11 +3,14 @@ package upload_window;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,6 +40,11 @@ public class GUI {
     Border border = new CompoundBorder(bottom, empty);
 
     private int page = 0;
+    private boolean check_ownerName;
+    private boolean check_ownerID;
+    private boolean check_certificateID;
+    private boolean check_Issuer;
+    private boolean check_vaild_period = true;
 
     private JTextField ownerName;
     private JTextField ownerID;
@@ -44,6 +52,11 @@ public class GUI {
     private JTextField Issuer;
     private JTextField vaild_period;
 
+    private JLabel ownerName_errText;
+    private JLabel ownerID_errText;
+    private JLabel certificateID_errText;
+    private JLabel Issuer_errText;
+    private JLabel vaild_period_errText;
     private JLabel hasVaildPeriod_txt;
     private JLabel table;
     private JLabel upload_txt_label;
@@ -87,7 +100,7 @@ public class GUI {
     // ImageIcon(getClass().getResource("/upload_window/res/bao.png"));
 
     private ArrayList<String> certification = new ArrayList<>();
-    private DataTable dataTable = new DataTable();
+    private DataTable dataTable = new DataTable(window);
     JSONObject bao = new JSONObject(
             "{\"certificateID\":\"#123456789\",\"issuer\":\"NTCU\",\"ownerID\":\"R124760286\",\"ownerName\":\"BigGrayBao\",\"vaildPeriod\":\"1999/02/11\"}");
 
@@ -151,9 +164,9 @@ public class GUI {
 
                 upload_check_txt = new JLabel("<html><body align='center'>上傳後即無法更改<br>確定要上傳嗎?</body></html>", null,
                         JLabel.CENTER);
-                // upload_check_txt.setFont(new Font("標楷體", Font.BOLD, 30));
+                upload_check_txt.setFont(new Font("標楷體", Font.BOLD, 30));
 
-                upload_check_txt.setFont(new Font("", Font.BOLD, 28));
+                // upload_check_txt.setFont(new Font("jf open 粉圓 1.0", Font.BOLD, 28));
                 upload_check_txt.setBounds(0, 0, 350, 120);
 
                 // Upload certificate dialog
@@ -239,6 +252,12 @@ public class GUI {
                 isFocusable(ownerID);
                 isFocusable(certificateID);
                 isFocusable(Issuer);
+                check_vaild_period = true;
+                // ownerName_errText.setVisible(false);
+                // ownerID_errText.setVisible(false);
+                // certificateID_errText.setVisible(false);
+                // Issuer_errText.setVisible(false);
+                // vaild_period_errText.setVisible(false);
 
                 dialog_yes_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "新增", 48, true);
                 dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
@@ -253,9 +272,9 @@ public class GUI {
                         Issuer.setFocusable(false);
                         vaild_period.setFocusable(false);
 
-                        InputControl check = new InputControl();
-                        if (!check.checkInput(ownerName.getText(), ownerID.getText(), certificateID.getText(),
-                                Issuer.getText(), vaild_period.getText())) {
+                        // InputControl check = new InputControl();
+                        if (!(check_ownerName && check_ownerID && check_certificateID && check_Issuer
+                                && check_vaild_period)) {
                             System.out.println("input error");
                             vaild_period.setFocusable(true);
                             window.snackbar.show("請檢查資料格式是否錯誤", 4000, Direct.Bottom);
@@ -320,10 +339,15 @@ public class GUI {
                     }
                 });
                 add_new_data_dialog.addi(ownerName);
+                add_new_data_dialog.addi(ownerName_errText);
                 add_new_data_dialog.addi(ownerID);
+                add_new_data_dialog.addi(ownerID_errText);
                 add_new_data_dialog.addi(certificateID);
+                add_new_data_dialog.addi(certificateID_errText);
                 add_new_data_dialog.addi(Issuer);
+                add_new_data_dialog.addi(Issuer_errText);
                 add_new_data_dialog.addi(vaild_period);
+                add_new_data_dialog.addi(vaild_period_errText);
                 add_new_data_dialog.addi(dialog_yes_btn);
                 add_new_data_dialog.addi(dialog_no_btn);
                 add_new_data_dialog.addi(hasVaildPeriod);
@@ -486,6 +510,21 @@ public class GUI {
         ownerName.setBorder(border);
         ownerName.enableInputMethods(false);
         ownerName.setFocusable(false);
+        ownerName.addCaretListener(new CaretListener() {
+            public void caretUpdate(CaretEvent event) {
+                if (ownerName.getText().matches("[\\S]{1,10}")) {
+                    ownerName_errText.setVisible(false);
+                    check_ownerName = true;
+                } else {
+                    ownerName_errText.setVisible(true);
+                    check_ownerName = false;
+                }
+            }
+        });
+        ownerName_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        ownerName_errText.setForeground(Color.RED);
+        ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+        ownerName_errText.setBounds(70, 105, 200, 20);
 
         /*************************
          * TextField for ownerID *
@@ -498,6 +537,21 @@ public class GUI {
         ownerID.setBorder(border);
         ownerID.enableInputMethods(false);
         ownerID.setFocusable(false);
+        ownerID.addCaretListener(new CaretListener() {
+            public void caretUpdate(CaretEvent event) {
+                if (ownerID.getText().matches("^[A-Z]{1}[1-2]{1}[0-9]{8}$")) {
+                    ownerID_errText.setVisible(false);
+                    check_ownerID = true;
+                } else {
+                    ownerID_errText.setVisible(true);
+                    check_ownerID = false;
+                }
+            }
+        });
+        ownerID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        ownerID_errText.setForeground(Color.RED);
+        ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+        ownerID_errText.setBounds(70, 185, 200, 20);
 
         /*******************************
          * TextField for certificateID *
@@ -510,6 +564,21 @@ public class GUI {
         certificateID.setBorder(border);
         certificateID.enableInputMethods(false);
         certificateID.setFocusable(false);
+        certificateID.addCaretListener(new CaretListener() {
+            public void caretUpdate(CaretEvent event) {
+                if (certificateID.getText().matches("^#{1}[0-9]{9}$")) {
+                    certificateID_errText.setVisible(false);
+                    check_certificateID = true;
+                } else {
+                    certificateID_errText.setVisible(true);
+                    check_certificateID = false;
+                }
+            }
+        });
+        certificateID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        certificateID_errText.setForeground(Color.RED);
+        certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+        certificateID_errText.setBounds(330, 105, 200, 20);
 
         /************************
          * TextField for Issuer *
@@ -522,6 +591,21 @@ public class GUI {
         Issuer.setBorder(border);
         Issuer.enableInputMethods(false);
         Issuer.setFocusable(false);
+        Issuer.addCaretListener(new CaretListener() {
+            public void caretUpdate(CaretEvent event) {
+                if (Issuer.getText().matches("[\\S]{1,10}")) {
+                    Issuer_errText.setVisible(false);
+                    check_Issuer = true;
+                } else {
+                    Issuer_errText.setVisible(true);
+                    check_Issuer = false;
+                }
+            }
+        });
+        Issuer_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        Issuer_errText.setForeground(Color.RED);
+        Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+        Issuer_errText.setBounds(330, 185, 200, 20);
 
         /******************************
          * TextField for Vaild period *
@@ -536,6 +620,23 @@ public class GUI {
         vaild_period.enableInputMethods(false);
         vaild_period.setFocusable(false);
         vaild_period.setEditable(false);
+        vaild_period.addCaretListener(new CaretListener() {
+            public void caretUpdate(CaretEvent event) {
+                if (vaild_period.getText().matches("^[1-9]{1}[0-9]{3}/[0-1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}$")
+                        || vaild_period.getText().equals("none")) {
+                    vaild_period_errText.setVisible(false);
+                    check_vaild_period = true;
+                } else {
+                    vaild_period_errText.setVisible(true);
+                    check_vaild_period = false;
+                }
+            }
+        });
+        vaild_period_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        vaild_period_errText.setForeground(Color.RED);
+        vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+        vaild_period_errText.setBounds(330, 265, 200, 20);
+        vaild_period_errText.setVisible(false);
 
         hasVaildPeriod_txt = new JLabel("有無期限", null, JLabel.CENTER);
         hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
@@ -562,4 +663,39 @@ public class GUI {
             }
         });
     }
+
+    // class MyTextField extends JComponent {
+
+    // private static final long serialVersionUID = 1L;
+    // public JTextField textField;
+    // public JLabel label;
+
+    // public MyTextField() {
+
+    // }
+
+    // public void init(int width, int textField_height, int label_height) {
+    // textField = new JTextField();
+    // textField.setBounds(0, 0, width, textField_height);
+    // textField.setFont(new Font("標楷體", Font.BOLD, 30));
+    // textField.setOpaque(false);
+    // textField.setBorder(border);
+    // textField.enableInputMethods(false);
+    // add(textField);
+
+    // label = new JLabel("1231");
+    // label.setForeground(Color.RED);
+    // label.setBounds(0, textField_height, width, label_height);
+    // label.setFont(new Font("標楷體", Font.PLAIN, 16));
+    // add(label);
+    // }
+
+    // public String getText() {
+    // return textField.getText();
+    // }
+
+    // public void setText(String s) {
+    // textField.setText(s);
+    // }
+    // }
 }

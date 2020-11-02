@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 import java.awt.event.*;
 
@@ -15,7 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import spgui.SPDialog;
+import spgui.SPWindow;
 import spgui.componenet.ToggleBtn;
+import spgui.componenet.Snackbar.Direct;
 import spgui.componenet.Button;
 
 import java.awt.*;
@@ -26,24 +30,39 @@ public class DataTable extends JComponent {
     private static final long serialVersionUID = 1L;
     private SPDialog add_new_data_dialog;
     private int page = 0;
+    private boolean check_ownerName = true;
+    private boolean check_ownerID = true;
+    private boolean check_certificateID = true;
+    private boolean check_Issuer = true;
+    private boolean check_vaild_period = true;
+
     private JTextField ownerName;
     private JTextField ownerID;
     private JTextField certificateID;
     private JTextField Issuer;
     private JTextField vaild_period;
+
     private JLabel hasVaildPeriod_txt;
-    private JLabel page_info;
+    private JLabel ownerName_errText;
+    private JLabel ownerID_errText;
+    private JLabel certificateID_errText;
+    private JLabel Issuer_errText;
+    private JLabel vaild_period_errText;
+
     private ToggleBtn hasVaildPeriod;
-    private Button dialog_yes_btn;
+
+    public Button dialog_yes_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "修改", 48, true);;
     private Button dialog_no_btn;
+
     Border bottom = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
     Border empty = new EmptyBorder(0, 2, 5, 2);
     Border border = new CompoundBorder(bottom, empty);
 
     ArrayList<JSONObject> data = new ArrayList<>();
+    SPWindow window;
 
-    public DataTable() {
-
+    public DataTable(SPWindow window) {
+        this.window = window;
     }
 
     public void addData(JSONObject jsObj) {
@@ -55,6 +74,10 @@ public class DataTable extends JComponent {
         for (int i = 0; i < jsArr.length(); i++)
             data.add(jsArr.getJSONObject(i));
         update();
+    }
+
+    public JComponent getTable() {
+        return this;
     }
 
     public void update() {
@@ -74,6 +97,11 @@ public class DataTable extends JComponent {
             item.edit.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    check_ownerName = true;
+                    check_ownerID = true;
+                    check_certificateID = true;
+                    check_Issuer = true;
+                    check_vaild_period = true;
 
                     /***************************
                      * TextField for ownerName *
@@ -89,6 +117,22 @@ public class DataTable extends JComponent {
                     ownerName.setBorder(border);
                     ownerName.enableInputMethods(false);
                     ownerName.setFocusable(false);
+                    ownerName.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (ownerName.getText().matches("[\\S]{1,10}")) {
+                                ownerName_errText.setVisible(false);
+                                check_ownerName = true;
+                            } else {
+                                ownerName_errText.setVisible(true);
+                                check_ownerName = false;
+                            }
+                        }
+                    });
+                    ownerName_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerName_errText.setForeground(Color.RED);
+                    ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerName_errText.setBounds(70, 105, 200, 20);
+                    ownerName_errText.setVisible(false);
 
                     /*************************
                      * TextField for ownerID *
@@ -103,6 +147,22 @@ public class DataTable extends JComponent {
                     ownerID.setBorder(border);
                     ownerID.enableInputMethods(false);
                     ownerID.setFocusable(false);
+                    ownerID.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (ownerID.getText().matches("^[A-Z]{1}[1-2]{1}[0-9]{8}$")) {
+                                ownerID_errText.setVisible(false);
+                                check_ownerID = true;
+                            } else {
+                                ownerID_errText.setVisible(true);
+                                check_ownerID = false;
+                            }
+                        }
+                    });
+                    ownerID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerID_errText.setForeground(Color.RED);
+                    ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerID_errText.setBounds(70, 185, 200, 20);
+                    ownerID_errText.setVisible(false);
 
                     /*******************************
                      * TextField for certificateID *
@@ -118,6 +178,22 @@ public class DataTable extends JComponent {
                     certificateID.setBorder(border);
                     certificateID.enableInputMethods(false);
                     certificateID.setFocusable(false);
+                    certificateID.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (certificateID.getText().matches("^#{1}[0-9]{9}$")) {
+                                certificateID_errText.setVisible(false);
+                                check_certificateID = true;
+                            } else {
+                                certificateID_errText.setVisible(true);
+                                check_certificateID = false;
+                            }
+                        }
+                    });
+                    certificateID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    certificateID_errText.setForeground(Color.RED);
+                    certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    certificateID_errText.setBounds(330, 105, 200, 20);
+                    certificateID_errText.setVisible(false);
 
                     /************************
                      * TextField for Issuer *
@@ -132,6 +208,22 @@ public class DataTable extends JComponent {
                     Issuer.setBorder(border);
                     Issuer.enableInputMethods(false);
                     Issuer.setFocusable(false);
+                    Issuer.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (Issuer.getText().matches("[\\S]{1,10}")) {
+                                Issuer_errText.setVisible(false);
+                                check_Issuer = true;
+                            } else {
+                                Issuer_errText.setVisible(true);
+                                check_Issuer = false;
+                            }
+                        }
+                    });
+                    Issuer_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    Issuer_errText.setForeground(Color.RED);
+                    Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    Issuer_errText.setBounds(330, 185, 200, 20);
+                    Issuer_errText.setVisible(false);
 
                     /******************************
                      * TextField for Vaild period *
@@ -148,6 +240,23 @@ public class DataTable extends JComponent {
                     vaild_period.enableInputMethods(false);
                     vaild_period.setFocusable(false);
                     vaild_period.setEditable(false);
+                    vaild_period.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (vaild_period.getText().matches("^[1-9]{1}[0-9]{3}/[0-1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}$")
+                                    || vaild_period.getText().equals("none")) {
+                                vaild_period_errText.setVisible(false);
+                                check_vaild_period = true;
+                            } else {
+                                vaild_period_errText.setVisible(true);
+                                check_vaild_period = false;
+                            }
+                        }
+                    });
+                    vaild_period_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    vaild_period_errText.setForeground(Color.RED);
+                    vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    vaild_period_errText.setBounds(330, 265, 200, 20);
+                    vaild_period_errText.setVisible(false);
 
                     hasVaildPeriod_txt = new JLabel("VaildPeriod", null, JLabel.CENTER);
                     hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
@@ -175,31 +284,40 @@ public class DataTable extends JComponent {
                     dialog_yes_btn.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            add_new_data_dialog.setVisible(false);
-                            ownerName.setFocusable(false);
-                            ownerID.setFocusable(false);
-                            certificateID.setFocusable(false);
-                            Issuer.setFocusable(false);
-                            vaild_period.setFocusable(false);
+                            if (!(check_ownerName && check_ownerID && check_certificateID && check_Issuer
+                                    && check_vaild_period)) {
+                                System.out.println("input error");
+                                vaild_period.setFocusable(true);
+                                window.snackbar.show("請檢查資料格式是否錯誤", 4000, Direct.Bottom);
+                            } else {
 
-                            myItem.put("ownerName", ownerName.getText());
-                            myItem.put("ownerID", ownerID.getText());
-                            myItem.put("certificateID", certificateID.getText());
-                            myItem.put("issuer", Issuer.getText());
-                            myItem.put("vaildPeriod", vaild_period.getText());
-                            item.setDataView(myItem);
+                                add_new_data_dialog.setVisible(false);
+                                ownerName.setFocusable(false);
+                                ownerID.setFocusable(false);
+                                certificateID.setFocusable(false);
+                                Issuer.setFocusable(false);
+                                vaild_period.setFocusable(false);
 
-                            ownerName.setText("");
-                            ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
-                            ownerID.setText("");
-                            ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
-                            certificateID.setText("");
-                            certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
-                            Issuer.setText("");
-                            Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
-                            vaild_period.setText("none");
-                            vaild_period.setEditable(false);
-                            vaild_period.setFocusable(false);
+                                myItem.put("ownerName", ownerName.getText());
+                                myItem.put("ownerID", ownerID.getText());
+                                myItem.put("certificateID", certificateID.getText());
+                                myItem.put("issuer", Issuer.getText());
+                                myItem.put("vaildPeriod", vaild_period.getText());
+                                item.setDataView(myItem);
+
+                                ownerName.setText("");
+                                ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+                                ownerID.setText("");
+                                ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+                                certificateID.setText("");
+                                certificateID
+                                        .addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+                                Issuer.setText("");
+                                Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+                                vaild_period.setText("none");
+                                vaild_period.setEditable(false);
+                                vaild_period.setFocusable(false);
+                            }
                         }
                     });
                     dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
@@ -237,10 +355,15 @@ public class DataTable extends JComponent {
                         }
                     });
                     add_new_data_dialog.addi(ownerName);
+                    add_new_data_dialog.addi(ownerName_errText);
                     add_new_data_dialog.addi(ownerID);
+                    add_new_data_dialog.addi(ownerID_errText);
                     add_new_data_dialog.addi(certificateID);
+                    add_new_data_dialog.addi(certificateID_errText);
                     add_new_data_dialog.addi(Issuer);
+                    add_new_data_dialog.addi(Issuer_errText);
                     add_new_data_dialog.addi(vaild_period);
+                    add_new_data_dialog.addi(vaild_period_errText);
                     add_new_data_dialog.addi(dialog_yes_btn);
                     add_new_data_dialog.addi(dialog_no_btn);
                     add_new_data_dialog.addi(hasVaildPeriod);
@@ -279,6 +402,11 @@ public class DataTable extends JComponent {
             item.edit.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    check_ownerName = true;
+                    check_ownerID = true;
+                    check_certificateID = true;
+                    check_Issuer = true;
+                    check_vaild_period = true;
 
                     /***************************
                      * TextField for ownerName *
@@ -294,6 +422,22 @@ public class DataTable extends JComponent {
                     ownerName.setBorder(border);
                     ownerName.enableInputMethods(false);
                     ownerName.setFocusable(false);
+                    ownerName.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (ownerName.getText().matches("[\\S]{1,10}")) {
+                                ownerName_errText.setVisible(false);
+                                check_ownerName = true;
+                            } else {
+                                ownerName_errText.setVisible(true);
+                                check_ownerName = false;
+                            }
+                        }
+                    });
+                    ownerName_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerName_errText.setForeground(Color.RED);
+                    ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerName_errText.setBounds(70, 105, 200, 20);
+                    ownerName_errText.setVisible(false);
 
                     /*************************
                      * TextField for ownerID *
@@ -308,6 +452,22 @@ public class DataTable extends JComponent {
                     ownerID.setBorder(border);
                     ownerID.enableInputMethods(false);
                     ownerID.setFocusable(false);
+                    ownerID.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (ownerID.getText().matches("^[A-Z]{1}[1-2]{1}[0-9]{8}$")) {
+                                ownerID_errText.setVisible(false);
+                                check_ownerID = true;
+                            } else {
+                                ownerID_errText.setVisible(true);
+                                check_ownerID = false;
+                            }
+                        }
+                    });
+                    ownerID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerID_errText.setForeground(Color.RED);
+                    ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerID_errText.setBounds(70, 185, 200, 20);
+                    ownerID_errText.setVisible(false);
 
                     /*******************************
                      * TextField for certificateID *
@@ -323,6 +483,22 @@ public class DataTable extends JComponent {
                     certificateID.setBorder(border);
                     certificateID.enableInputMethods(false);
                     certificateID.setFocusable(false);
+                    certificateID.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (certificateID.getText().matches("^#{1}[0-9]{9}$")) {
+                                certificateID_errText.setVisible(false);
+                                check_certificateID = true;
+                            } else {
+                                certificateID_errText.setVisible(true);
+                                check_certificateID = false;
+                            }
+                        }
+                    });
+                    certificateID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    certificateID_errText.setForeground(Color.RED);
+                    certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    certificateID_errText.setBounds(330, 105, 200, 20);
+                    certificateID_errText.setVisible(false);
 
                     /************************
                      * TextField for Issuer *
@@ -337,6 +513,22 @@ public class DataTable extends JComponent {
                     Issuer.setBorder(border);
                     Issuer.enableInputMethods(false);
                     Issuer.setFocusable(false);
+                    Issuer.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (Issuer.getText().matches("[\\S]{1,10}")) {
+                                Issuer_errText.setVisible(false);
+                                check_Issuer = true;
+                            } else {
+                                Issuer_errText.setVisible(true);
+                                check_Issuer = false;
+                            }
+                        }
+                    });
+                    Issuer_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    Issuer_errText.setForeground(Color.RED);
+                    Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    Issuer_errText.setBounds(330, 185, 200, 20);
+                    Issuer_errText.setVisible(false);
 
                     /******************************
                      * TextField for Vaild period *
@@ -353,6 +545,23 @@ public class DataTable extends JComponent {
                     vaild_period.enableInputMethods(false);
                     vaild_period.setFocusable(false);
                     vaild_period.setEditable(false);
+                    vaild_period.addCaretListener(new CaretListener() {
+                        public void caretUpdate(CaretEvent event) {
+                            if (vaild_period.getText().matches("^[1-9]{1}[0-9]{3}/[0-1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}$")
+                                    || vaild_period.getText().equals("none")) {
+                                vaild_period_errText.setVisible(false);
+                                check_vaild_period = true;
+                            } else {
+                                vaild_period_errText.setVisible(true);
+                                check_vaild_period = false;
+                            }
+                        }
+                    });
+                    vaild_period_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    vaild_period_errText.setForeground(Color.RED);
+                    vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    vaild_period_errText.setBounds(330, 265, 200, 20);
+                    vaild_period_errText.setVisible(false);
 
                     hasVaildPeriod_txt = new JLabel("VaildPeriod", null, JLabel.CENTER);
                     hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
@@ -380,31 +589,40 @@ public class DataTable extends JComponent {
                     dialog_yes_btn.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            add_new_data_dialog.setVisible(false);
-                            ownerName.setFocusable(false);
-                            ownerID.setFocusable(false);
-                            certificateID.setFocusable(false);
-                            Issuer.setFocusable(false);
-                            vaild_period.setFocusable(false);
+                            if (!(check_ownerName && check_ownerID && check_certificateID && check_Issuer
+                                    && check_vaild_period)) {
+                                System.out.println("input error");
+                                vaild_period.setFocusable(true);
+                                window.snackbar.show("請檢查資料格式是否錯誤", 4000, Direct.Bottom);
+                            } else {
 
-                            myItem.put("ownerName", ownerName.getText());
-                            myItem.put("ownerID", ownerID.getText());
-                            myItem.put("certificateID", certificateID.getText());
-                            myItem.put("issuer", Issuer.getText());
-                            myItem.put("vaildPeriod", vaild_period.getText());
-                            item.setDataView(myItem);
+                                add_new_data_dialog.setVisible(false);
+                                ownerName.setFocusable(false);
+                                ownerID.setFocusable(false);
+                                certificateID.setFocusable(false);
+                                Issuer.setFocusable(false);
+                                vaild_period.setFocusable(false);
 
-                            ownerName.setText("");
-                            ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
-                            ownerID.setText("");
-                            ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
-                            certificateID.setText("");
-                            certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
-                            Issuer.setText("");
-                            Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
-                            vaild_period.setText("none");
-                            vaild_period.setEditable(false);
-                            vaild_period.setFocusable(false);
+                                myItem.put("ownerName", ownerName.getText());
+                                myItem.put("ownerID", ownerID.getText());
+                                myItem.put("certificateID", certificateID.getText());
+                                myItem.put("issuer", Issuer.getText());
+                                myItem.put("vaildPeriod", vaild_period.getText());
+                                item.setDataView(myItem);
+
+                                ownerName.setText("");
+                                ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+                                ownerID.setText("");
+                                ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+                                certificateID.setText("");
+                                certificateID
+                                        .addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+                                Issuer.setText("");
+                                Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+                                vaild_period.setText("none");
+                                vaild_period.setEditable(false);
+                                vaild_period.setFocusable(false);
+                            }
                         }
                     });
                     dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
@@ -442,10 +660,15 @@ public class DataTable extends JComponent {
                         }
                     });
                     add_new_data_dialog.addi(ownerName);
+                    add_new_data_dialog.addi(ownerName_errText);
                     add_new_data_dialog.addi(ownerID);
+                    add_new_data_dialog.addi(ownerID_errText);
                     add_new_data_dialog.addi(certificateID);
+                    add_new_data_dialog.addi(certificateID_errText);
                     add_new_data_dialog.addi(Issuer);
+                    add_new_data_dialog.addi(Issuer_errText);
                     add_new_data_dialog.addi(vaild_period);
+                    add_new_data_dialog.addi(vaild_period_errText);
                     add_new_data_dialog.addi(dialog_yes_btn);
                     add_new_data_dialog.addi(dialog_no_btn);
                     add_new_data_dialog.addi(hasVaildPeriod);
@@ -459,7 +682,6 @@ public class DataTable extends JComponent {
             });
             add(item);
         }
-
         this.repaint();
         return this.page;
     }
