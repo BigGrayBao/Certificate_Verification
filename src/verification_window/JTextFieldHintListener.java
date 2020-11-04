@@ -14,7 +14,7 @@ public class JTextFieldHintListener implements FocusListener {
         this.textField = jTextField;
         this.hintText = hintText;
         jTextField.setText(hintText); // 默认直接显示
-        jTextField.setForeground(Color.GRAY);
+        jTextField.setForeground(Color.WHITE);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class JTextFieldHintListener implements FocusListener {
         String temp = textField.getText();
         if (temp.equals(hintText)) {
             textField.setText("");
-            textField.setForeground(Color.BLACK);
+            textField.setForeground(Color.WHITE);
         }
 
     }
@@ -33,7 +33,7 @@ public class JTextFieldHintListener implements FocusListener {
         // 失去焦点时，没有输入内容，显示提示内容
         String temp = textField.getText();
         if (temp.equals("")) {
-            textField.setForeground(Color.GRAY);
+            textField.setForeground(Color.WHITE);
             textField.setText(hintText);
         }
 
