@@ -521,7 +521,7 @@ public class GUI {
                 }
             }
         });
-        ownerName_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        ownerName_errText = new JLabel("名稱不能為空");
         ownerName_errText.setForeground(Color.RED);
         ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
         ownerName_errText.setBounds(70, 105, 200, 20);
@@ -548,7 +548,7 @@ public class GUI {
                 }
             }
         });
-        ownerID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        ownerID_errText = new JLabel("格式錯誤 請確認格式");
         ownerID_errText.setForeground(Color.RED);
         ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
         ownerID_errText.setBounds(70, 185, 200, 20);
@@ -575,7 +575,7 @@ public class GUI {
                 }
             }
         });
-        certificateID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        certificateID_errText = new JLabel("格式錯誤 請確認格式");
         certificateID_errText.setForeground(Color.RED);
         certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
         certificateID_errText.setBounds(330, 105, 200, 20);
@@ -602,7 +602,7 @@ public class GUI {
                 }
             }
         });
-        Issuer_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        Issuer_errText = new JLabel("發證單位不能為空");
         Issuer_errText.setForeground(Color.RED);
         Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
         Issuer_errText.setBounds(330, 185, 200, 20);
@@ -632,7 +632,7 @@ public class GUI {
                 }
             }
         });
-        vaild_period_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+        vaild_period_errText = new JLabel("日期格式為(yyyy/mm/dd)");
         vaild_period_errText.setForeground(Color.RED);
         vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
         vaild_period_errText.setBounds(330, 265, 200, 20);

@@ -128,7 +128,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    ownerName_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerName_errText = new JLabel("名稱不能為空");
                     ownerName_errText.setForeground(Color.RED);
                     ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     ownerName_errText.setBounds(70, 105, 200, 20);
@@ -158,7 +158,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    ownerID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerID_errText = new JLabel("格式錯誤 請確認格式");
                     ownerID_errText.setForeground(Color.RED);
                     ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     ownerID_errText.setBounds(70, 185, 200, 20);
@@ -189,7 +189,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    certificateID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    certificateID_errText = new JLabel("格式錯誤 請確認格式");
                     certificateID_errText.setForeground(Color.RED);
                     certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     certificateID_errText.setBounds(330, 105, 200, 20);
@@ -219,7 +219,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    Issuer_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    Issuer_errText = new JLabel("發證單位不能為空");
                     Issuer_errText.setForeground(Color.RED);
                     Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     Issuer_errText.setBounds(330, 185, 200, 20);
@@ -252,7 +252,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    vaild_period_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    vaild_period_errText = new JLabel("日期格式為(yyyy/mm/dd)");
                     vaild_period_errText.setForeground(Color.RED);
                     vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     vaild_period_errText.setBounds(330, 265, 200, 20);
@@ -306,14 +306,13 @@ public class DataTable extends JComponent {
                                 item.setDataView(myItem);
 
                                 ownerName.setText("");
-                                ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+                                ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "擁有者名稱"));
                                 ownerID.setText("");
-                                ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+                                ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "身分證"));
                                 certificateID.setText("");
-                                certificateID
-                                        .addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+                                certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "證書編號"));
                                 Issuer.setText("");
-                                Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+                                Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "發證單位"));
                                 vaild_period.setText("none");
                                 vaild_period.setEditable(false);
                                 vaild_period.setFocusable(false);
@@ -346,7 +345,7 @@ public class DataTable extends JComponent {
                             } else {
                                 vaild_period.setFocusable(true);
                                 vaild_period.setEditable(true);
-                                vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "vaild_period"));
+                                vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "有效期限"));
                             }
                             ownerName.setFocusable(false);
                             ownerID.setFocusable(false);
@@ -433,7 +432,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    ownerName_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerName_errText = new JLabel("名稱不能為空");
                     ownerName_errText.setForeground(Color.RED);
                     ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     ownerName_errText.setBounds(70, 105, 200, 20);
@@ -463,7 +462,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    ownerID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    ownerID_errText = new JLabel("格式錯誤 請確認格式");
                     ownerID_errText.setForeground(Color.RED);
                     ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     ownerID_errText.setBounds(70, 185, 200, 20);
@@ -494,7 +493,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    certificateID_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    certificateID_errText = new JLabel("格式錯誤 請確認格式");
                     certificateID_errText.setForeground(Color.RED);
                     certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     certificateID_errText.setBounds(330, 105, 200, 20);
@@ -524,7 +523,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    Issuer_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    Issuer_errText = new JLabel("發證單位不能為空");
                     Issuer_errText.setForeground(Color.RED);
                     Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     Issuer_errText.setBounds(330, 185, 200, 20);
@@ -557,7 +556,7 @@ public class DataTable extends JComponent {
                             }
                         }
                     });
-                    vaild_period_errText = new JLabel("BaoBaoBaoBaoBaoBao");
+                    vaild_period_errText = new JLabel("日期格式為(yyyy/mm/dd)");
                     vaild_period_errText.setForeground(Color.RED);
                     vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
                     vaild_period_errText.setBounds(330, 265, 200, 20);
@@ -611,14 +610,13 @@ public class DataTable extends JComponent {
                                 item.setDataView(myItem);
 
                                 ownerName.setText("");
-                                ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "ownerName"));
+                                ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "擁有者名稱"));
                                 ownerID.setText("");
-                                ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
+                                ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "身分證"));
                                 certificateID.setText("");
-                                certificateID
-                                        .addFocusListener(new JTextFieldHintListener(certificateID, "certificateID"));
+                                certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "證書編號"));
                                 Issuer.setText("");
-                                Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
+                                Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "發證單位"));
                                 vaild_period.setText("none");
                                 vaild_period.setEditable(false);
                                 vaild_period.setFocusable(false);
@@ -651,7 +649,7 @@ public class DataTable extends JComponent {
                             } else {
                                 vaild_period.setFocusable(true);
                                 vaild_period.setEditable(true);
-                                vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "vaild_period"));
+                                vaild_period.addFocusListener(new JTextFieldHintListener(vaild_period, "有效期限"));
                             }
                             ownerName.setFocusable(false);
                             ownerID.setFocusable(false);
