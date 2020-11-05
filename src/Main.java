@@ -32,7 +32,7 @@ public class Main {
                         gui.show();
                         timer.cancel();
                     }
-                }, 4700/* 3500 */, 1);
+                }, 4700 /* 3500 */, 1);
             }
         });
     }
