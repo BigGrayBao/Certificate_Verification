@@ -152,40 +152,40 @@ class DataTableItem extends JComponent {
         ownerName.setForeground(Color.WHITE);
         ownerName.setFont(new Font("標楷體", Font.PLAIN, 18));
         ownerName.setText(data_info.getString("ownerName"));
-        ownerName.setBounds(15, 0, 200, 50);
+        ownerName.setBounds(15, 0, 100, 50);
         add(ownerName);
 
         ownerID.setForeground(Color.WHITE);
         ownerID.setFont(new Font("標楷體", Font.PLAIN, 18));
         ownerID.setText(data_info.getString("ownerID"));
-        ownerID.setBounds(138, 0, 200, 50);
+        ownerID.setBounds(138, 0, 100, 50);
         add(ownerID);
 
         certificateID.setForeground(Color.WHITE);
         certificateID.setFont(new Font("標楷體", Font.PLAIN, 18));
         certificateID.setText(data_info.getString("certificateID"));
-        certificateID.setBounds(260, 0, 200, 50);
+        certificateID.setBounds(260, 0, 100, 50);
         add(certificateID);
 
         issuer.setForeground(Color.WHITE);
         issuer.setFont(new Font("標楷體", Font.PLAIN, 18));
         issuer.setText(data_info.getString("issuer"));
-        issuer.setBounds(405, 0, 200, 50);
+        issuer.setBounds(405, 0, 100, 50);
         add(issuer);
 
         vaildPeriod.setForeground(Color.WHITE);
         vaildPeriod.setFont(new Font("標楷體", Font.PLAIN, 18));
         vaildPeriod.setText(data_info.getString("vaildPeriod"));
-        vaildPeriod.setBounds(543, 0, 200, 50);
+        vaildPeriod.setBounds(543, 0, 100, 50);
         add(vaildPeriod);
 
         found.setForeground(Color.GREEN);
-        found.setFont(new Font("標楷體", Font.PLAIN, 18));
-        found.setBounds(650, 0, 200, 50);
+        found.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 18));
+        found.setBounds(650, -3, 200, 50);
 
         notfound.setForeground(Color.RED);
-        notfound.setFont(new Font("標楷體", Font.PLAIN, 18));
-        notfound.setBounds(640, 0, 200, 50);
+        notfound.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 18));
+        notfound.setBounds(640, -3, 200, 50);
 
         String check = data_info.getString("ownerName");
         if (check.equals("error"))

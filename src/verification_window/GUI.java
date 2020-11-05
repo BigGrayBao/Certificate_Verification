@@ -40,6 +40,8 @@ public class GUI {
     Border border = new CompoundBorder(bottom, empty);
 
     private int page = 0;
+    private String pagestr;
+
     private boolean check_ownerName;
     private boolean check_ownerID;
     private boolean check_certificateID;
@@ -62,10 +64,12 @@ public class GUI {
     private JLabel upload_txt_label;
     private JLabel upload_certificate_btn;
     private JLabel upload_json_btn;
+    private JLabel uploadArea_txt;
     private JLabel add_new_data_btn;
     private JLabel upload_check_txt;
     private JLabel left_arrow_btn;
     private JLabel right_arrow_btn;
+    private JLabel page_txt;
 
     private ToggleBtn hasVaildPeriod;
     private Button dialog_yes_btn;
@@ -166,7 +170,7 @@ public class GUI {
         // upload_check_txt = new JLabel("<html><body
         // align='center'>上傳後即無法更改<br>確定要上傳嗎?</body></html>", null,
         // JLabel.CENTER);
-        // upload_check_txt.setFont(new Font("標楷體", Font.BOLD, 30));
+        // upload_check_txt.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 30));
 
         // // upload_check_txt.setFont(new Font("jf open 粉圓 1.0", Font.BOLD, 28));
         // upload_check_txt.setBounds(0, 0, 350, 120);
@@ -337,8 +341,13 @@ public class GUI {
                 /****************************
                  * A uploadArea to add file *
                  ****************************/
-                uploadArea = new UploadArea(250, 150, 54, 28, 24);
-                uploadArea.setBounds(180, 100, 450, 450);
+                uploadArea = new UploadArea(450, 230, 60, 36, 70);
+                uploadArea.setBounds(78, 85, 450, 450);
+
+                uploadArea_txt = new JLabel("請點擊此處或將檔案拖曳至此", null, JLabel.CENTER);
+                uploadArea_txt.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 30));
+                uploadArea_txt.setBounds(0, 30, 600, 35);
+                uploadArea_txt.setForeground(Color.WHITE);
 
                 dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
                 dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
@@ -364,13 +373,15 @@ public class GUI {
                             dataObject = new JSONObject();
                             for (int i = 0; i < dataArray.length(); i++) {
                                 dataArray.getJSONObject(i).getString("certificateID");
-                                dataTable.addData(bao);
+                                // dataTable.addData(bao);
                                 // System.out.println(dataArray);
                             }
+                            dataTable.addData(dataArray);
                         }
                     }
                 });
 
+                load_json_dialog.addi(uploadArea_txt);
                 load_json_dialog.addi(uploadArea);
                 load_json_dialog.addi(dialog_no_btn);
                 load_json_dialog.addi(dialog_yes_btn);
@@ -409,6 +420,8 @@ public class GUI {
             public void mouseClicked(MouseEvent e) {
                 page--;
                 page = dataTable.changPage(page);
+                pagestr = Integer.toString(page + 1);
+                page_txt.setText("第 " + pagestr + " 頁");
             }
         });
         window.addi(left_arrow_btn, Integer.valueOf(500));
@@ -441,6 +454,8 @@ public class GUI {
             public void mouseClicked(MouseEvent e) {
                 page++;
                 page = dataTable.changPage(page);
+                pagestr = Integer.toString(page + 1);
+                page_txt.setText("第 " + pagestr + " 頁");
             }
         });
         window.addi(right_arrow_btn, Integer.valueOf(500));
@@ -450,7 +465,7 @@ public class GUI {
          ***************************/
         // ownerName = new JTextField();
         // ownerName.setBounds(70, 50, 200, 50);
-        // ownerName.setFont(new Font("標楷體", Font.BOLD, 30));
+        // ownerName.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 30));
         // ownerName.addFocusListener(new JTextFieldHintListener(ownerName, "擁有者名稱"));
         // ownerName.setOpaque(false);
         // ownerName.setBorder(border);
@@ -477,7 +492,7 @@ public class GUI {
          *************************/
         // ownerID = new JTextField();
         // ownerID.setBounds(70, 130, 200, 50);
-        // ownerID.setFont(new Font("標楷體", Font.BOLD, 30));
+        // ownerID.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 30));
         // ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "身分證"));
         // ownerID.setOpaque(false);
         // ownerID.setBorder(border);
@@ -504,7 +519,7 @@ public class GUI {
          *******************************/
         certificateID = new JTextField();
         certificateID.setBounds(75, 30, 200, 50);
-        certificateID.setFont(new Font("標楷體", Font.BOLD, 30));
+        certificateID.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
         certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "輸入證書編號"));
         certificateID.setForeground(Color.WHITE);
         certificateID.setHorizontalAlignment(JTextField.CENTER);
@@ -528,12 +543,18 @@ public class GUI {
         certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
         certificateID_errText.setBounds(100, 85, 200, 20);
 
+        page_txt = new JLabel("第 1 頁");
+        page_txt.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 18));
+        page_txt.setForeground(Color.WHITE);
+        page_txt.setBounds(520, 505, 100, 30);
+        page_txt.setHorizontalAlignment(JLabel.CENTER);
+        window.addi(page_txt, Integer.valueOf(500));
         /************************
          * TextField for Issuer *
          ************************/
         // Issuer = new JTextField();
         // Issuer.setBounds(330, 130, 200, 50);
-        // Issuer.setFont(new Font("標楷體", Font.BOLD, 30));
+        // Issuer.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 30));
         // Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "發證單位"));
         // Issuer.setOpaque(false);
         // Issuer.setBorder(border);
@@ -560,7 +581,7 @@ public class GUI {
          ******************************/
         // vaild_period = new JTextField();
         // vaild_period.setBounds(330, 210, 200, 50);
-        // vaild_period.setFont(new Font("標楷體", Font.BOLD, 30));
+        // vaild_period.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 30));
         // vaild_period.setText("none");
         // vaild_period.setForeground(new Color(191, 191, 191));
         // vaild_period.setOpaque(false);
@@ -589,7 +610,7 @@ public class GUI {
 
         // hasVaildPeriod_txt = new JLabel("有無期限", null, JLabel.CENTER);
         // hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
-        // hasVaildPeriod_txt.setFont(new Font("標楷體", Font.BOLD, 24));
+        // hasVaildPeriod_txt.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
         // hasVaildPeriod_txt.setForeground(Color.WHITE);
 
     }
@@ -626,7 +647,7 @@ public class GUI {
     // public void init(int width, int textField_height, int label_height) {
     // textField = new JTextField();
     // textField.setBounds(0, 0, width, textField_height);
-    // textField.setFont(new Font("標楷體", Font.BOLD, 30));
+    // textField.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 30));
     // textField.setOpaque(false);
     // textField.setBorder(border);
     // textField.enableInputMethods(false);

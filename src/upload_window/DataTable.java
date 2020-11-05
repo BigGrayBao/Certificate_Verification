@@ -110,7 +110,7 @@ public class DataTable extends JComponent {
                     ownerName.setText(myItem.getString("ownerName"));
                     ownerName.setForeground(Color.white);
                     ownerName.setBounds(70, 50, 200, 50);
-                    ownerName.setFont(new Font("標楷體", Font.BOLD, 30));
+                    ownerName.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // ownerName.addFocusListener(new JTextFieldHintListener(ownerName,
                     // "ownerName"));
                     ownerName.setOpaque(false);
@@ -141,7 +141,7 @@ public class DataTable extends JComponent {
                     ownerID.setText(myItem.getString("ownerID"));
                     ownerID.setForeground(Color.white);
                     ownerID.setBounds(70, 130, 200, 50);
-                    ownerID.setFont(new Font("標楷體", Font.BOLD, 30));
+                    ownerID.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
                     ownerID.setOpaque(false);
                     ownerID.setBorder(border);
@@ -171,7 +171,7 @@ public class DataTable extends JComponent {
                     certificateID.setText(myItem.getString("certificateID"));
                     certificateID.setForeground(Color.white);
                     certificateID.setBounds(330, 50, 200, 50);
-                    certificateID.setFont(new Font("標楷體", Font.BOLD, 30));
+                    certificateID.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // certificateID.addFocusListener(new JTextFieldHintListener(certificateID,
                     // "certificateID"));
                     certificateID.setOpaque(false);
@@ -202,7 +202,7 @@ public class DataTable extends JComponent {
                     Issuer.setText(myItem.getString("issuer"));
                     Issuer.setForeground(Color.white);
                     Issuer.setBounds(330, 130, 200, 50);
-                    Issuer.setFont(new Font("標楷體", Font.BOLD, 30));
+                    Issuer.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
                     Issuer.setOpaque(false);
                     Issuer.setBorder(border);
@@ -232,7 +232,7 @@ public class DataTable extends JComponent {
                     vaild_period.setText(myItem.getString("vaildPeriod"));
                     vaild_period.setForeground(new Color(191, 191, 191));
                     vaild_period.setBounds(330, 210, 200, 50);
-                    vaild_period.setFont(new Font("標楷體", Font.BOLD, 30));
+                    vaild_period.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // vaild_period.setText("none");
                     vaild_period.setForeground(new Color(191, 191, 191));
                     vaild_period.setOpaque(false);
@@ -381,7 +381,7 @@ public class DataTable extends JComponent {
 
     public int changPage(int page) {
         if (data.isEmpty())
-            return this.page--;
+            return this.page;
         this.removeAll();
         this.page = page <= 0 || data.isEmpty() ? 0 : page;
         this.page = this.page >= (data.size() / 8) ? (data.size() / 8) : this.page;
@@ -414,7 +414,7 @@ public class DataTable extends JComponent {
                     ownerName.setText(myItem.getString("ownerName"));
                     ownerName.setForeground(Color.white);
                     ownerName.setBounds(70, 50, 200, 50);
-                    ownerName.setFont(new Font("標楷體", Font.BOLD, 30));
+                    ownerName.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // ownerName.addFocusListener(new JTextFieldHintListener(ownerName,
                     // "ownerName"));
                     ownerName.setOpaque(false);
@@ -445,7 +445,7 @@ public class DataTable extends JComponent {
                     ownerID.setText(myItem.getString("ownerID"));
                     ownerID.setForeground(Color.white);
                     ownerID.setBounds(70, 130, 200, 50);
-                    ownerID.setFont(new Font("標楷體", Font.BOLD, 30));
+                    ownerID.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // ownerID.addFocusListener(new JTextFieldHintListener(ownerID, "ownerID"));
                     ownerID.setOpaque(false);
                     ownerID.setBorder(border);
@@ -475,7 +475,7 @@ public class DataTable extends JComponent {
                     certificateID.setText(myItem.getString("certificateID"));
                     certificateID.setForeground(Color.white);
                     certificateID.setBounds(330, 50, 200, 50);
-                    certificateID.setFont(new Font("標楷體", Font.BOLD, 30));
+                    certificateID.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // certificateID.addFocusListener(new JTextFieldHintListener(certificateID,
                     // "certificateID"));
                     certificateID.setOpaque(false);
@@ -506,7 +506,7 @@ public class DataTable extends JComponent {
                     Issuer.setText(myItem.getString("issuer"));
                     Issuer.setForeground(Color.white);
                     Issuer.setBounds(330, 130, 200, 50);
-                    Issuer.setFont(new Font("標楷體", Font.BOLD, 30));
+                    Issuer.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "Issuer"));
                     Issuer.setOpaque(false);
                     Issuer.setBorder(border);
@@ -536,7 +536,7 @@ public class DataTable extends JComponent {
                     vaild_period.setText(myItem.getString("vaildPeriod"));
                     vaild_period.setForeground(new Color(191, 191, 191));
                     vaild_period.setBounds(330, 210, 200, 50);
-                    vaild_period.setFont(new Font("標楷體", Font.BOLD, 30));
+                    vaild_period.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     // vaild_period.setText("none");
                     vaild_period.setForeground(new Color(191, 191, 191));
                     vaild_period.setOpaque(false);
@@ -724,31 +724,31 @@ class DataTableItem extends JComponent {
         ownerName.setForeground(Color.WHITE);
         ownerName.setFont(new Font("標楷體", Font.PLAIN, 18));
         ownerName.setText(data_info.getString("ownerName"));
-        ownerName.setBounds(15, 0, 200, 50);
+        ownerName.setBounds(15, 0, 90, 50);
         add(ownerName);
 
         ownerID.setForeground(Color.WHITE);
         ownerID.setFont(new Font("標楷體", Font.PLAIN, 18));
         ownerID.setText(data_info.getString("ownerID"));
-        ownerID.setBounds(138, 0, 200, 50);
+        ownerID.setBounds(138, 0, 100, 50);
         add(ownerID);
 
         certificateID.setForeground(Color.WHITE);
         certificateID.setFont(new Font("標楷體", Font.PLAIN, 18));
         certificateID.setText(data_info.getString("certificateID"));
-        certificateID.setBounds(260, 0, 200, 50);
+        certificateID.setBounds(260, 0, 100, 50);
         add(certificateID);
 
         issuer.setForeground(Color.WHITE);
         issuer.setFont(new Font("標楷體", Font.PLAIN, 18));
         issuer.setText(data_info.getString("issuer"));
-        issuer.setBounds(405, 0, 200, 50);
+        issuer.setBounds(405, 0, 100, 50);
         add(issuer);
 
         vaildPeriod.setForeground(Color.WHITE);
         vaildPeriod.setFont(new Font("標楷體", Font.PLAIN, 18));
         vaildPeriod.setText(data_info.getString("vaildPeriod"));
-        vaildPeriod.setBounds(543, 0, 200, 50);
+        vaildPeriod.setBounds(543, 0, 100, 50);
         add(vaildPeriod);
 
         edit.setBounds(655, 14, 18, 18);
