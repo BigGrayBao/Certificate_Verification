@@ -130,7 +130,7 @@ public class DataTable extends JComponent {
                     });
                     ownerName_errText = new JLabel("名稱不能為空");
                     ownerName_errText.setForeground(Color.RED);
-                    ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerName_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     ownerName_errText.setBounds(70, 105, 200, 20);
                     ownerName_errText.setVisible(false);
 
@@ -160,7 +160,7 @@ public class DataTable extends JComponent {
                     });
                     ownerID_errText = new JLabel("格式錯誤 請確認格式");
                     ownerID_errText.setForeground(Color.RED);
-                    ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerID_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     ownerID_errText.setBounds(70, 185, 200, 20);
                     ownerID_errText.setVisible(false);
 
@@ -191,7 +191,7 @@ public class DataTable extends JComponent {
                     });
                     certificateID_errText = new JLabel("格式錯誤 請確認格式");
                     certificateID_errText.setForeground(Color.RED);
-                    certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    certificateID_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     certificateID_errText.setBounds(330, 105, 200, 20);
                     certificateID_errText.setVisible(false);
 
@@ -221,7 +221,7 @@ public class DataTable extends JComponent {
                     });
                     Issuer_errText = new JLabel("發證單位不能為空");
                     Issuer_errText.setForeground(Color.RED);
-                    Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    Issuer_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     Issuer_errText.setBounds(330, 185, 200, 20);
                     Issuer_errText.setVisible(false);
 
@@ -254,13 +254,13 @@ public class DataTable extends JComponent {
                     });
                     vaild_period_errText = new JLabel("日期格式為(yyyy/mm/dd)");
                     vaild_period_errText.setForeground(Color.RED);
-                    vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    vaild_period_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     vaild_period_errText.setBounds(330, 265, 200, 20);
                     vaild_period_errText.setVisible(false);
 
-                    hasVaildPeriod_txt = new JLabel("VaildPeriod", null, JLabel.CENTER);
+                    hasVaildPeriod_txt = new JLabel("有無期限", null, JLabel.CENTER);
                     hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
-                    hasVaildPeriod_txt.setFont(new Font("標楷體", Font.PLAIN, 20));
+                    hasVaildPeriod_txt.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
                     hasVaildPeriod_txt.setForeground(Color.WHITE);
 
                     add_new_data_dialog = new SPDialog(600, 450);
@@ -434,7 +434,7 @@ public class DataTable extends JComponent {
                     });
                     ownerName_errText = new JLabel("名稱不能為空");
                     ownerName_errText.setForeground(Color.RED);
-                    ownerName_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerName_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     ownerName_errText.setBounds(70, 105, 200, 20);
                     ownerName_errText.setVisible(false);
 
@@ -464,7 +464,7 @@ public class DataTable extends JComponent {
                     });
                     ownerID_errText = new JLabel("格式錯誤 請確認格式");
                     ownerID_errText.setForeground(Color.RED);
-                    ownerID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    ownerID_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     ownerID_errText.setBounds(70, 185, 200, 20);
                     ownerID_errText.setVisible(false);
 
@@ -495,7 +495,7 @@ public class DataTable extends JComponent {
                     });
                     certificateID_errText = new JLabel("格式錯誤 請確認格式");
                     certificateID_errText.setForeground(Color.RED);
-                    certificateID_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    certificateID_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     certificateID_errText.setBounds(330, 105, 200, 20);
                     certificateID_errText.setVisible(false);
 
@@ -525,7 +525,7 @@ public class DataTable extends JComponent {
                     });
                     Issuer_errText = new JLabel("發證單位不能為空");
                     Issuer_errText.setForeground(Color.RED);
-                    Issuer_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    Issuer_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     Issuer_errText.setBounds(330, 185, 200, 20);
                     Issuer_errText.setVisible(false);
 
@@ -558,13 +558,13 @@ public class DataTable extends JComponent {
                     });
                     vaild_period_errText = new JLabel("日期格式為(yyyy/mm/dd)");
                     vaild_period_errText.setForeground(Color.RED);
-                    vaild_period_errText.setFont(new Font("標楷體", Font.PLAIN, 16));
+                    vaild_period_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
                     vaild_period_errText.setBounds(330, 265, 200, 20);
                     vaild_period_errText.setVisible(false);
 
-                    hasVaildPeriod_txt = new JLabel("VaildPeriod", null, JLabel.CENTER);
+                    hasVaildPeriod_txt = new JLabel("有無期限", null, JLabel.CENTER);
                     hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
-                    hasVaildPeriod_txt.setFont(new Font("標楷體", Font.PLAIN, 20));
+                    hasVaildPeriod_txt.setFont(new Font("標楷體", Font.PLAIN, 24));
                     hasVaildPeriod_txt.setForeground(Color.WHITE);
 
                     add_new_data_dialog = new SPDialog(600, 450);
@@ -724,7 +724,7 @@ class DataTableItem extends JComponent {
         ownerName.setForeground(Color.WHITE);
         ownerName.setFont(new Font("標楷體", Font.PLAIN, 18));
         ownerName.setText(data_info.getString("ownerName"));
-        ownerName.setBounds(15, 0, 90, 50);
+        ownerName.setBounds(15, 0, 100, 50);
         add(ownerName);
 
         ownerID.setForeground(Color.WHITE);

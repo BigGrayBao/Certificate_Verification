@@ -19,32 +19,6 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 System.setProperty("sun.java2d.opengl", "true");
-                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                try {
-                    String filepath = getClass().getResource("/upload_window/res/FiraCode-Light.ttf").getFile();
-                    // ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(filepath)));
-                    // InputStream filepath =
-                    // getClass().getResourceAsStream("/upload_window/res/jf-openhuninn-1.0.ttf");
-                    // System.out.println(filepath);
-                    // InputStream jfFont = new FileInputStream(new
-                    // File("./jf-openhuninn-1.0.ttf"));
-                    // ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, filepath));
-                    // ge.registerFont(Font.createFont(Font.TRUETYPE_FONT,
-                    // getClass().getResourceAsStream("/upload_window/res/jf-openhuninn-1.0.ttf")));
-                    filepath = getClass().getResource("/upload_window/res/jf-openhuninn-1.0.ttf").getFile();
-                    Font f = Font.createFont(Font.TRUETYPE_FONT, new File(filepath));
-                    if (!ge.registerFont(f)) {
-                        System.out.println("Unable to register font");
-                    }
-                    // ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(filepath)));
-                    Font[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
-                    for (Font ff : fonts) {
-                        System.out.println("Name:" + ff.getFontName());
-                    }
-                } catch (IOException | FontFormatException e) {
-                    e.printStackTrace();
-                }
-
                 System.out.println("Welcome to Baolockchain");
                 GUI gui = new GUI();
                 gui.run();
