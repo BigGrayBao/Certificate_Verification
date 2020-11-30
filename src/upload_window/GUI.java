@@ -34,7 +34,7 @@ import spgui.componenet.UploadArea;
 import spgui.componenet.Snackbar.Direct;
 
 public class GUI {
-    SPWindow window = new SPWindow(800, 600);
+    SPWindow window = new SPWindow(900, 600);
 
     Border bottom = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black);
     Border empty = new EmptyBorder(0, 2, 5, 2);
@@ -47,18 +47,21 @@ public class GUI {
     private boolean check_ownerID;
     private boolean check_certificateID;
     private boolean check_Issuer;
+    private boolean check_dateIssue;
     private boolean check_vaild_period = true;
 
     private JTextField ownerName;
     private JTextField ownerID;
     private JTextField certificateID;
     private JTextField Issuer;
+    private JTextField dateIssue;
     private JTextField vaild_period;
 
     private JLabel ownerName_errText;
     private JLabel ownerID_errText;
     private JLabel certificateID_errText;
     private JLabel Issuer_errText;
+    private JLabel dateIssue_errText;
     private JLabel vaild_period_errText;
     private JLabel hasVaildPeriod_txt;
     private JLabel table;
@@ -126,11 +129,11 @@ public class GUI {
 
         // A data table to view certificate info
         table = new JLabel("", table_icon, JLabel.CENTER);
-        table.setBounds(0, -30, 800, 600);
+        table.setBounds(0, -30, 900, 600);
         table.setVisible(true);
         window.addi(table, 200);
 
-        dataTable.setBounds(50, 160, 800, 600);
+        dataTable.setBounds(40, 160, 900, 600);
         window.addi(dataTable, Integer.valueOf(300));
 
         // Text
@@ -141,7 +144,7 @@ public class GUI {
 
         // Upload certificate
         upload_certificate_btn = new JLabel("", upload_certificate, JLabel.CENTER);
-        upload_certificate_btn.setBounds(260, 75, 180, 50);
+        upload_certificate_btn.setBounds(360, 75, 180, 50);
         upload_certificate_btn.setVisible(true);
         upload_certificate_btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -202,6 +205,7 @@ public class GUI {
                             // System.out.println(item.getString("ownerName"));
 
                         });
+                        window.snackbar.show("上傳成功", 4000, Direct.Bottom);
                         dataTable.data.clear();
                         dataTable.update();
                     }
@@ -219,7 +223,7 @@ public class GUI {
 
         // Add new data
         add_new_data_btn = new JLabel("", add_new_data, JLabel.CENTER);
-        add_new_data_btn.setBounds(430, 73, 180, 50);
+        add_new_data_btn.setBounds(530, 73, 180, 50);
         add_new_data_btn.setVisible(true);
         add_new_data_btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -245,13 +249,13 @@ public class GUI {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                add_new_data_dialog = new SPDialog(600, 450);
+                add_new_data_dialog = new SPDialog(600, 500);
                 add_new_data_dialog.setLocationRelativeTo(window);
                 add_new_data_dialog.setTitle("新增資料");
                 add_new_data_dialog.setTitleBarColor(new Color(10, 10, 10, 250));
                 add_new_data_dialog.setBackgroundColor(new Color(120, 120, 120, 255));
                 hasVaildPeriod = new ToggleBtn(50, 30);
-                hasVaildPeriod.setBounds(180, 205, 200, 150);
+                hasVaildPeriod.setBounds(180, 285, 200, 150);
                 hasVaildPeriod.setColor(new Color(255, 44, 140, 200), new Color(255, 44, 140, 255),
                         new Color(255, 44, 140, 100));
 
@@ -259,6 +263,7 @@ public class GUI {
                 isFocusable(ownerID);
                 isFocusable(certificateID);
                 isFocusable(Issuer);
+                isFocusable(dateIssue);
                 check_vaild_period = true;
                 // ownerName_errText.setVisible(false);
                 // ownerID_errText.setVisible(false);
@@ -268,7 +273,7 @@ public class GUI {
 
                 dialog_yes_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "新增", 48, true);
                 dialog_yes_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
-                dialog_yes_btn.setBounds(370, 340, 140, 70);
+                dialog_yes_btn.setBounds(370, 380, 140, 70);
                 dialog_yes_btn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -277,10 +282,11 @@ public class GUI {
                         ownerID.setFocusable(false);
                         certificateID.setFocusable(false);
                         Issuer.setFocusable(false);
+                        dateIssue.setFocusable(false);
                         vaild_period.setFocusable(false);
 
                         // InputControl check = new InputControl();
-                        if (!(check_ownerName && check_ownerID && check_certificateID && check_Issuer
+                        if (!(check_ownerName && check_ownerID && check_certificateID && check_Issuer && check_dateIssue
                                 && check_vaild_period)) {
                             System.out.println("input error");
                             vaild_period.setFocusable(true);
@@ -293,6 +299,7 @@ public class GUI {
                             dataObject.put("ownerID", ownerID.getText());
                             dataObject.put("certificateID", certificateID.getText());
                             dataObject.put("issuer", Issuer.getText());
+                            dataObject.put("dateIssue", dateIssue.getText());
                             dataObject.put("vaildPeriod", vaild_period.getText());
                             dataTable.addData(dataObject);
 
@@ -304,6 +311,8 @@ public class GUI {
                             certificateID.addFocusListener(new JTextFieldHintListener(certificateID, "證書編號"));
                             Issuer.setText("");
                             Issuer.addFocusListener(new JTextFieldHintListener(Issuer, "發證單位"));
+                            dateIssue.setText("");
+                            dateIssue.addFocusListener(new JTextFieldHintListener(dateIssue, "發證日期"));
                             vaild_period.setText("none");
                             vaild_period.setEditable(false);
                             vaild_period.setFocusable(false);
@@ -313,7 +322,7 @@ public class GUI {
                 });
                 dialog_no_btn = new Button(120, 50, 32, null, new Color(255, 255, 255, 255), "取消", 48, true);
                 dialog_no_btn.setFont(new Font("Microsoft Tai Le", Font.BOLD, 18));
-                dialog_no_btn.setBounds(110, 340, 140, 70);
+                dialog_no_btn.setBounds(110, 380, 140, 70);
                 dialog_no_btn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -322,6 +331,7 @@ public class GUI {
                         ownerID.setFocusable(false);
                         certificateID.setFocusable(false);
                         Issuer.setFocusable(false);
+                        dateIssue.setFocusable(false);
                         vaild_period.setFocusable(false);
                     }
                 });
@@ -343,6 +353,7 @@ public class GUI {
                         ownerID.setFocusable(false);
                         certificateID.setFocusable(false);
                         Issuer.setFocusable(false);
+                        dateIssue.setFocusable(false);
                     }
                 });
                 add_new_data_dialog.addi(ownerName);
@@ -353,6 +364,8 @@ public class GUI {
                 add_new_data_dialog.addi(certificateID_errText);
                 add_new_data_dialog.addi(Issuer);
                 add_new_data_dialog.addi(Issuer_errText);
+                add_new_data_dialog.addi(dateIssue);
+                add_new_data_dialog.addi(dateIssue_errText);
                 add_new_data_dialog.addi(vaild_period);
                 add_new_data_dialog.addi(vaild_period_errText);
                 add_new_data_dialog.addi(dialog_yes_btn);
@@ -368,7 +381,7 @@ public class GUI {
 
         // Upload file
         upload_json_btn = new JLabel("", upload_json, JLabel.CENTER);
-        upload_json_btn.setBounds(600, 75, 180, 50);
+        upload_json_btn.setBounds(700, 75, 180, 50);
         upload_json_btn.setVisible(true);
         upload_json_btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -449,7 +462,7 @@ public class GUI {
         window.addi(upload_json_btn);
 
         left_arrow_btn = new JLabel("", left_arrow, JLabel.CENTER);
-        left_arrow_btn.setBounds(640, 507, 33, 30);
+        left_arrow_btn.setBounds(740, 507, 33, 30);
         left_arrow_btn.setVisible(true);
         left_arrow_btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -484,7 +497,7 @@ public class GUI {
         window.addi(left_arrow_btn, Integer.valueOf(500));
 
         right_arrow_btn = new JLabel("", right_arrow, JLabel.CENTER);
-        right_arrow_btn.setBounds(710, 507, 33, 30);
+        right_arrow_btn.setBounds(810, 507, 33, 30);
         right_arrow_btn.setVisible(true);
         right_arrow_btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -626,11 +639,38 @@ public class GUI {
         Issuer_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
         Issuer_errText.setBounds(330, 185, 200, 20);
 
+        /***************************
+         * TextField for dateIssue *
+         ***************************/
+        dateIssue = new JTextField();
+        dateIssue.setBounds(70, 210, 200, 50);
+        dateIssue.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
+        dateIssue.addFocusListener(new JTextFieldHintListener(dateIssue, "發證日期"));
+        dateIssue.setOpaque(false);
+        dateIssue.setBorder(border);
+        dateIssue.enableInputMethods(false);
+        dateIssue.setFocusable(false);
+        dateIssue.addCaretListener(new CaretListener() {
+            public void caretUpdate(CaretEvent event) {
+                if (dateIssue.getText().matches("^[1-9]{1}[0-9]{3}/[0-1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}$")) {
+                    dateIssue_errText.setVisible(false);
+                    check_dateIssue = true;
+                } else {
+                    dateIssue_errText.setVisible(true);
+                    check_dateIssue = false;
+                }
+            }
+        });
+        dateIssue_errText = new JLabel("發證日期不能為空");
+        dateIssue_errText.setForeground(Color.RED);
+        dateIssue_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
+        dateIssue_errText.setBounds(70, 265, 200, 20);
+
         /******************************
          * TextField for Vaild period *
          ******************************/
         vaild_period = new JTextField();
-        vaild_period.setBounds(330, 210, 200, 50);
+        vaild_period.setBounds(330, 290, 200, 50);
         vaild_period.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
         vaild_period.setText("none");
         vaild_period.setForeground(new Color(191, 191, 191));
@@ -654,18 +694,18 @@ public class GUI {
         vaild_period_errText = new JLabel("日期格式為(yyyy/mm/dd)");
         vaild_period_errText.setForeground(Color.RED);
         vaild_period_errText.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 16));
-        vaild_period_errText.setBounds(330, 265, 200, 20);
+        vaild_period_errText.setBounds(330, 345, 200, 20);
         vaild_period_errText.setVisible(false);
 
         hasVaildPeriod_txt = new JLabel("有無期限", null, JLabel.CENTER);
-        hasVaildPeriod_txt.setBounds(25, 210, 200, 50);
+        hasVaildPeriod_txt.setBounds(25, 290, 200, 50);
         hasVaildPeriod_txt.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
         hasVaildPeriod_txt.setForeground(Color.WHITE);
 
         page_txt = new JLabel("第 1 頁");
         page_txt.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 18));
         page_txt.setForeground(Color.WHITE);
-        page_txt.setBounds(520, 505, 100, 30);
+        page_txt.setBounds(620, 505, 100, 30);
         page_txt.setHorizontalAlignment(JLabel.CENTER);
         window.addi(page_txt, Integer.valueOf(500));
 

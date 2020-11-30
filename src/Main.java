@@ -9,10 +9,10 @@ import javax.swing.SwingUtilities;
 
 import java.awt.*;
 
-import upload_window.GUI;
-import upload_window.StartupWindow;
-// import verification_window.GUI;
-// import verification_window.StartupWindow;
+// import upload_window.GUI;
+// import upload_window.StartupWindow;
+import verification_window.GUI;
+import verification_window.StartupWindow;
 
 public class Main {
     public static void main(String[] args) {

@@ -86,7 +86,7 @@ public class DataTable extends JComponent {
         for (int i = 0; i < length; i++) {
             DataTableItem item = new DataTableItem(data.get(i));
             JSONObject myItem = data.get(i);
-            item.setBounds(0, this.getComponentCount() * 42, 800, 50);
+            item.setBounds(0, this.getComponentCount() * 42, 900, 50);
             add(item);
         }
         this.repaint();
@@ -94,7 +94,7 @@ public class DataTable extends JComponent {
 
     public int changPage(int page) {
         if (data.isEmpty())
-            return this.page--;
+            return this.page;
         this.removeAll();
         this.page = page <= 0 || data.isEmpty() ? 0 : page;
         this.page = this.page >= (data.size() / 8) ? (data.size() / 8) : this.page;
@@ -103,7 +103,7 @@ public class DataTable extends JComponent {
         for (int i = temp; i < temp + 8 && i < data.size(); i++) {
             JSONObject myItem = data.get(i);
             DataTableItem item = new DataTableItem(data.get(i));
-            item.setBounds(0, this.getComponentCount() * 42, 800, 50);
+            item.setBounds(0, this.getComponentCount() * 42, 900, 50);
             add(item);
         }
         this.repaint();
@@ -142,6 +142,7 @@ class DataTableItem extends JComponent {
     private JLabel ownerID = new JLabel();
     private JLabel certificateID = new JLabel();
     private JLabel issuer = new JLabel();
+    private JLabel dateIssue = new JLabel();
     private JLabel vaildPeriod = new JLabel();
     public JLabel edit = new JLabel(edit_img);
     public JLabel delete = new JLabel(delete_img);
@@ -152,40 +153,46 @@ class DataTableItem extends JComponent {
         ownerName.setForeground(Color.WHITE);
         ownerName.setFont(new Font("標楷體", Font.PLAIN, 18));
         ownerName.setText(data_info.getString("ownerName"));
-        ownerName.setBounds(15, 0, 100, 50);
+        ownerName.setBounds(0, 0, 100, 50);
         add(ownerName);
 
         ownerID.setForeground(Color.WHITE);
         ownerID.setFont(new Font("標楷體", Font.PLAIN, 18));
         ownerID.setText(data_info.getString("ownerID"));
-        ownerID.setBounds(138, 0, 100, 50);
+        ownerID.setBounds(123, 0, 100, 50);
         add(ownerID);
 
         certificateID.setForeground(Color.WHITE);
         certificateID.setFont(new Font("標楷體", Font.PLAIN, 18));
         certificateID.setText(data_info.getString("certificateID"));
-        certificateID.setBounds(260, 0, 100, 50);
+        certificateID.setBounds(245, 0, 100, 50);
         add(certificateID);
 
         issuer.setForeground(Color.WHITE);
         issuer.setFont(new Font("標楷體", Font.PLAIN, 18));
         issuer.setText(data_info.getString("issuer"));
-        issuer.setBounds(405, 0, 100, 50);
+        issuer.setBounds(390, 0, 100, 50);
         add(issuer);
+
+        dateIssue.setForeground(Color.WHITE);
+        dateIssue.setFont(new Font("標楷體", Font.PLAIN, 18));
+        dateIssue.setText(data_info.getString("dateIssue"));
+        dateIssue.setBounds(515, 0, 100, 50);
+        add(dateIssue);
 
         vaildPeriod.setForeground(Color.WHITE);
         vaildPeriod.setFont(new Font("標楷體", Font.PLAIN, 18));
         vaildPeriod.setText(data_info.getString("vaildPeriod"));
-        vaildPeriod.setBounds(543, 0, 100, 50);
+        vaildPeriod.setBounds(653, 0, 100, 50);
         add(vaildPeriod);
 
         found.setForeground(Color.GREEN);
         found.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 18));
-        found.setBounds(650, -3, 200, 50);
+        found.setBounds(755, -3, 200, 50);
 
         notfound.setForeground(Color.RED);
         notfound.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 18));
-        notfound.setBounds(640, -3, 200, 50);
+        notfound.setBounds(745, -3, 200, 50);
 
         String check = data_info.getString("ownerName");
         if (check.equals("error"))
@@ -199,6 +206,7 @@ class DataTableItem extends JComponent {
         ownerID.setText(data_info.getString("ownerID"));
         certificateID.setText(data_info.getString("certificateID"));
         issuer.setText(data_info.getString("issuer"));
+        dateIssue.setText(data_info.getString("dateIssue"));
         vaildPeriod.setText(data_info.getString("vaildPeriod"));
         repaint();
     }
